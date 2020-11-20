@@ -34,7 +34,7 @@ namespace AuthService.Server.user
                 if (conn.State == ConnectionState.Open)
                 {
                     var query = "API_01.Lay_ds_nguoi_dung";
-                    result = SqlMapper.Query<NguoiDungModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).ToList();
+                    result = SqlMapper.Query<DanhsachNguoidungModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).ToList();
                     conn.Close();
                 }
 

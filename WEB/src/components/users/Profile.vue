@@ -20,7 +20,7 @@
         <v-col cols="4" >
         
           <template >
-            <v-card style="min-height: 490px;">
+            <v-card :loading="loading_user" style="min-height: 490px;">
               <v-card-title>
                 Danh sách người dùng
                 <v-spacer></v-spacer>
@@ -77,35 +77,47 @@
           </template>     
         </v-col> -->
       </v-row> 
-    
+    <v-snackbar
+        outlined
+        color="#329EF4"
+        top
+        v-model="snackbar"
+        :timeout="timeout"
+      >
+        {{ text }}
+  
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="blue"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+          >
+            Đóng
+          </v-btn>
+        </template>
+      </v-snackbar>
 
   </div>
+  
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { mapGetters } from "vuex";
+import factory from "../../services/factory/repositoryfactory";
+const user = factory.get("user");
 export default {
   data(){
     return{
       search: "",
+      text: "",
+      timeout: 2000,
+      loading_user:false,
       headers_users: [
-          { text: 'Tên nhân viên', value: 'ten_nv'},
-          { text: 'Mã nhân viên', value: 'ma_vn' },
+          { text: 'Mã ND', value: 'ma_ND'},
+          { text: 'Tên NV', value: 'ten_NV' },
           { text: 'Đơn vị', value: 'ten_dv' },
         ],
-      items_users:[
-        {ten_nv:"Mai Đức Diễm Trang", ma_vn:"01761", ten_dv:"	ttvt"},
-        {ten_nv:"Vũ Đình Thành", ma_vn:"20641", ten_dv:"	ttvt"},
-        {ten_nv:"Vy Thị Huyền Chi", ma_vn:"02454", ten_dv:"	ttvt"},
-        {ten_nv:"Võ Thị Ngọc Phương", ma_vn:"02509", ten_dv:"	ttvt"},
-        {ten_nv:"Lê Thị Bích Thuận", ma_vn:"14246", ten_dv:"	ttvt"},
-        {ten_nv:"Hoàng Thị Hoài Trang", ma_vn:"15201", ten_dv:"	ttvt"},
-        {ten_nv:"Huỳnh Thu Hương", ma_vn:"totruong", ten_dv:"	ttvt"},
-        {ten_nv:"Nguyễn Thị Bích Thủy", ma_vn:"00314", ten_dv:"	ttvt"},
-        {ten_nv:"HUNG  VUONG CK THU NGAN 2", ma_vn:"hv2_ck", ten_dv:"	ttvt"},
-        {ten_nv:"Vũ Thị Xuân Tú", ma_vn:"tuvtx", ten_dv:"ttvt"}
-      ],
+      items_users:[],
       headers_menu: [
           { text: '', value: 'stt'},
           { text: 'ID quyền', value: 'id_quyen'},
@@ -143,17 +155,23 @@ export default {
       ]
     }
   },
+  created(){
+    this.Lay_DS_Nguoidung();
+  },
   methods:{
-    ...mapActions(["lay_ds_nguoidung"]),
-    Lay_DS_NguoiDung(){
-      try{
-      this.lay_ds_nguoidung({});
-      } catch(err) {
-        console.log(err);
+    Lay_DS_Nguoidung(){
+      
+      var self=this;
+      self.loading_user=true
+      user.Lay_DS_Nguoidung().then( response =>{
+        if(response.data.success){
+          self.items_users=response.data.data;
+          self.text="Lấy dữ liệu danh sách người dùng hoàn tất"
+          self.snackbar = true;
         }
-
+        self.loading_user=false;
+      }).catch();
     },
-
 
 
 
@@ -164,9 +182,7 @@ export default {
     }
   }
   ,
-  created(){
-    this.Lay_DS_NguoiDung();
-  }
+  
 
 }
 </script>

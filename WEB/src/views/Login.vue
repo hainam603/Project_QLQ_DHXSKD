@@ -109,7 +109,7 @@
             v-bind="attrs"
             @click="snackbar = false"
           >
-            Close
+            Đóng
           </v-btn>
         </template>
       </v-snackbar>
@@ -196,7 +196,8 @@ export default {
             var nexthour = new Date();
             nexthour.setDate(today.getDate() + 1);
             document.cookie = "token_session=" + JSON.stringify(value) + ";expires =" +nexthour +"";
-            self.$router.push("/home");
+            // self.$router.push("/home");
+            window.location.href = "/";
 
         }
         else

@@ -11885,11 +11885,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\AuthService\\AuthService.csproj",
+      "projectUniqueName": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\AuthService\\AuthService.csproj",
       "projectName": "AuthService",
-      "projectPath": "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\AuthService\\AuthService.csproj",
+      "projectPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\AuthService\\AuthService.csproj",
       "packagesPath": "C:\\Users\\HaiNam\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\AuthService\\obj\\",
+      "outputPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\AuthService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -11908,8 +11908,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\Model\\Model.csproj": {
-              "projectPath": "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\Model\\Model.csproj"
+            "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj": {
+              "projectPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj"
             }
           }
         }

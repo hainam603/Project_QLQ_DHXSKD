@@ -14,5 +14,7 @@ namespace Model.Model
         public int nhanvien_ID { get; set; }
         public int trangThai { get; set; }
         public string ghiChu { get; set; }
+        public string ten_dv { get; set; }
+        public string ten_dvql { get; set; }
     }
 }

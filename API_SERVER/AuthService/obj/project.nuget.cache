@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VVDHr7/3ZlUlNiyedLlHWs8R8Ui+4YEibiQlVkGWFozKEBMnVw0mEKb3jwdAoknLjI0HTdq72D+0ImbeSPtBrg==",
+  "dgSpecHash": "7VcDG2bhqOetLkXi3fw99l2s740T5jlECfV4gXHAQppkQOuu68io7AJuQx65/Z7Joi2Gkjxxjtc2aV+YzEMZEQ==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\AuthService\\AuthService.csproj",
+  "projectFilePath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\AuthService\\AuthService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HaiNam\\.nuget\\packages\\dapper\\2.0.78\\dapper.2.0.78.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",

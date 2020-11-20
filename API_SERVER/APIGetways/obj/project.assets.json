@@ -12414,11 +12414,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\APIGetways\\APIGetways.csproj",
+      "projectUniqueName": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\APIGetways\\APIGetways.csproj",
       "projectName": "APIGetways",
-      "projectPath": "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\APIGetways\\APIGetways.csproj",
+      "projectPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\APIGetways\\APIGetways.csproj",
       "packagesPath": "C:\\Users\\HaiNam\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\APIGetways\\obj\\",
+      "outputPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\APIGetways\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12437,8 +12437,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\Model\\Model.csproj": {
-              "projectPath": "D:\\Projects\\QLQ_DHSXKD\\API_SERVER\\Model\\Model.csproj"
+            "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj": {
+              "projectPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj"
             }
           }
         }

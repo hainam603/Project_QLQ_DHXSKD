@@ -1,0 +1,39 @@
+{
+    
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/auth/{}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ],
+            "UpstreamPathTemplate": "/auth/{}",
+            "UpstreamHttpMethod": [ "Get","Post","Put" ]
+
+        },
+        {
+            "DownstreamPathTemplate": "/api/user/{}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ],
+            "UpstreamPathTemplate": "/user/{}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "TestKey",
+                "AllowedScopes": []
+            }
+
+        }
+    ],
+    "GlobalConfiguration": {
+        "RequestIdKey": "OcRequestId",
+        "AdministrationPath": "/administration"
+    }
+}

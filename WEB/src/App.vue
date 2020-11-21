@@ -148,10 +148,34 @@
         </keep-alive>
       </transition>
     </template>
+    <v-snackbar
+        outlined
+        color="#303F9F"
+        top
+        v-model="snackbar"
+        :timeout="timeout"
+      >
+        {{ text }}
+  
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="blue"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+          >
+            Đóng
+          </v-btn>
+        </template>
+      </v-snackbar>
   </div>
 </template>
 
 <script>
+import kt_session from "./services/Kiemtra_Session";
+import factory from "./services/factory/repositoryfactory";
+const user = factory.get("user");
+const kt=kt_session;
 export default {
   name: "App",
 
@@ -159,6 +183,10 @@ export default {
 
   data: () => ({
     //
+    snackbar: false,
+    text: "",
+    timeout: 2000,
+    items_user:[],
     loading: false,
     message: "",
     sideNav: false,
@@ -251,7 +279,40 @@ export default {
     ],
   }),
   created(){
-    
+    if(kt.getTokenByLocal()){
+      this.$router.push("/home");
+      var self=this;
+      self.snackbar= true;
+      self.text= "Đang lấy danh sách người dùng";
+      user.Lay_DS_Nguoidung().then( response =>{
+        if(response.data.success){
+          response.data.data.forEach(function(element,key){
+            self.items_user.push({
+              stt:key+1,
+              ma_ND:element.ma_ND,
+              ma_NV:element.ma_NV,
+              ten_NV:element.ten_NV,
+              so_DT:element.so_DT,
+              nhanvien_ID:element.nhanvien_ID,
+              trangThai:element.trangThai,
+              ghiChu:element.ghiChu,
+              ten_dv:element.ten_dv,
+              ten_dvql:element.ten_dvql
+            });
+          });
+          self.$store.commit("get_items_user", self.items_user);
+          self.snackbar= true;
+          self.text= "Đã lấy xong dữ liệu người dùng";
+        }
+      }).catch(error=>{
+        self.snackbar= true;
+        self.text= error;
+      });
+      console.log("đã lấy xong dữ liệu")
+      
+    }
+    else
+      console.log("Chưa có user đăng nhập");
   },
   watch: {
     search(val) {
@@ -264,6 +325,7 @@ export default {
   },
 
   methods: {
+    
     querySelections(v) {
       this.loading = true;
       // Simulated ajax query

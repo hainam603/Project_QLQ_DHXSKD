@@ -25,5 +25,10 @@ namespace AuthService.Controllers
         {
             return user.Lay_DS_Nguoidung();
         }
+        [HttpGet("Lay_DS_Quyen_Nguoidung")]
+        public dynamic Lay_DS_Quyen_Nguoidung(string nhanvien_id)
+        {
+            return user.Lay_DS_Quyen_Nguoidung(nhanvien_id);
+        }
     }
 }

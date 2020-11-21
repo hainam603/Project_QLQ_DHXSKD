@@ -23,9 +23,13 @@
 </template>
 
 <script>
+import factory from "../services/factory/repositoryfactory";
+const user = factory.get("user");
 export default {
+  
   data() {
     return {
+      items_user:[],
       items: [
         {
           title: "QUẢN LÝ MENU",
@@ -66,7 +70,33 @@ export default {
     if (this.loggedIn) {
       this.$router.push("/login");
     }
+    else
+      this.Lay_DS_Nguoidung();
   },
+  methods:{
+    Lay_DS_Nguoidung(){
+      var self=this;
+      user.Lay_DS_Nguoidung().then( response =>{
+        if(response.data.success){
+          response.data.data.forEach(function(element,key){
+            self.items_user.push({
+              stt:key+1,
+              ma_ND:element.ma_ND,
+              ma_NV:element.ma_NV,
+              ten_NV:element.ten_NV,
+              so_DT:element.so_DT,
+              nhanvien_ID:element.nhanvien_ID,
+              trangThai:element.trangThai,
+              ghiChu:element.ghiChu,
+              ten_dv:element.ten_dv,
+              ten_dvql:element.ten_dvql
+            });
+          });
+          self.$store.commit("get_items_user", self.items_user);
+        }
+      }).catch(error=>{console.log(error)});
+    },
+  }
 }
 </script>
 <style scoped></style>

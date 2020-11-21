@@ -11,11 +11,20 @@ export default new Vuex.Store({
     auth,
   },
   state: {
-    items_user:[]
+    items_user:[],
+    headers_user: [
+      { text: '', value: 'stt'},
+      { text: 'NV ID', value: 'nhanvien_ID'},
+      { text: 'Tên NV', value: 'ten_NV' },
+      { text: 'Đơn vị', value: 'ten_dv' },
+    ],
   },
   getters: {
     return_items_user: state => {
       return state.items_user
+    },
+    return_headers_user: state => {
+      return state.headers_user
     }
  
   },

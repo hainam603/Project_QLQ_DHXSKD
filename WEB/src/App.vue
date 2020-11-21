@@ -280,7 +280,7 @@ export default {
   }),
   created(){
     if(kt.getTokenByLocal()){
-      this.$router.push("/home");
+     
       var self=this;
       self.snackbar= true;
       self.text= "Đang lấy danh sách người dùng";
@@ -309,6 +309,7 @@ export default {
         self.text= error;
       });
       console.log("đã lấy xong dữ liệu")
+      self.$router.push("/home");
       
     }
     else

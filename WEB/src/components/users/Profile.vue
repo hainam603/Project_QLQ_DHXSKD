@@ -33,7 +33,7 @@
                 ></v-text-field>
               </v-card-title>
               <v-data-table
-                :headers="headers_users"
+                :headers="headers_user"
                 :items="items_user"
                 :search="search"
                 :items-per-page="5"
@@ -77,12 +77,7 @@ export default {
       timeout: 2000,
       snackbar:false,
       loading_user:false,
-      headers_users: [
-          { text: '', value: 'stt'},
-          { text: 'Nhân viên ID', value: 'nhanvien_ID'},
-          { text: 'Tên NV', value: 'ten_NV' },
-          { text: 'Đơn vị', value: 'ten_dv' },
-        ],
+      headers_user: [],
       items_user:[],
       headers_role: [
           { text: '', value: 'stt'},
@@ -101,6 +96,7 @@ export default {
   },
   mounted () {
     this.items_user=this.$store.getters.return_items_user;
+    this.headers_user=this.$store.getters.return_headers_user;
   },
   methods:{
       Nguoidung_Click(e){

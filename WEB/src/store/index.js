@@ -14,7 +14,7 @@ export default new Vuex.Store({
     items_user:[],
     headers_user: [
       { text: '', value: 'stt'},
-      { text: 'NV ID', value: 'nhanvien_ID'},
+      { text: 'Mã ND', value: 'ma_ND'},
       { text: 'Tên NV', value: 'ten_NV' },
       { text: 'Đơn vị', value: 'ten_dv' },
     ],
@@ -31,6 +31,7 @@ export default new Vuex.Store({
   mutations: {
     get_items_user (state, payload) {
       state.items_user = payload
+      debugger;
     }
  
   },

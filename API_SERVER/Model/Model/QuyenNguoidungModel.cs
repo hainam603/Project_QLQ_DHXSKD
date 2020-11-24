@@ -8,8 +8,9 @@ namespace Model.Model
     {
         public string ma_nd { get; set; }
         public string ten_nd { get; set; }
-        public int nhom_nd_id { get; set; }
         public string ten_quyen { get; set; }
         public int quyen_id { get; set; }
+        public int nhom_nd_id { get; set; }
+        public string ten_nhom { get; set; }
     }
 }

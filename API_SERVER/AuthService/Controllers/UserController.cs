@@ -25,10 +25,33 @@ namespace AuthService.Controllers
         {
             return user.Lay_DS_Nguoidung();
         }
+        // Quyền người dùng
         [HttpGet("Lay_DS_Quyen_Nguoidung")]
-        public dynamic Lay_DS_Quyen_Nguoidung(string nhanvien_id)
+        public dynamic Lay_DS_Quyen_Nguoidung(string ma_nd)
         {
-            return user.Lay_DS_Quyen_Nguoidung(nhanvien_id);
+            return user.Lay_DS_Quyen_Nguoidung(ma_nd);
+        }
+        //Menu người dùng
+        [HttpGet("Lay_DS_Menu_Nguoidung")]
+        public dynamic Lay_DS_Menu_Nguoidung(string ma_nd)
+        {
+            return user.Lay_DS_Menu_Nguoidung(ma_nd);
+        }
+        [HttpGet("Lay_DS_LoaiNV_Nguoidung")]
+        public dynamic Lay_DS_LoaiNV_Nguoidung(string ma_nd)
+        {
+            return user.Lay_DS_LoaiNV_Nguoidung(ma_nd);
+        }
+        //Báo cáo người dùng
+        [HttpGet("Lay_DS_Nhombaocao_Nguoidung")]
+        public dynamic Lay_DS_Nhombaocao_Nguoidung(string ma_nd)
+        {
+            return user.Lay_DS_Nhombaocao_Nguoidung(ma_nd);
+        }
+        [HttpGet("Lay_DS_Baocao_Nguoidung")]
+        public dynamic Lay_DS_Baocao_Nguoidung(string ma_nd, string nhom_bc_id)
+        {
+            return user.Lay_DS_Baocao_Nguoidung(ma_nd, nhom_bc_id);
         }
     }
 }

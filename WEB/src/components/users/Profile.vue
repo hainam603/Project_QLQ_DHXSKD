@@ -37,8 +37,22 @@
                 :items="items_user"
                 :search="search"
                 :items-per-page="5"
-                @click:row="Nguoidung_Click"
-              ></v-data-table>
+
+              >
+              <template v-slot:body="{ items }">
+                <tbody>
+                  <tr :class="key === selected_row ? 'custom-highlight-row' : ''" 
+                  @click="Nguoidung_Click_Row(item,key)" 
+                  v-for="(item, key) in items" 
+                  :key="item.stt">
+                    <td>{{ key+1 }}</td>
+                    <td>{{ item.ma_ND }}</td>
+                    <td>{{ item.ten_NV }}</td>
+                    <td>{{ item.ten_dv }}</td>
+                  </tr>
+                </tbody>
+              </template>
+              </v-data-table>
             </v-card>
           </template>
               
@@ -67,11 +81,13 @@
 
 <script>
 import factory from "../../services/factory/repositoryfactory";
+import a from "../../css/style.css"
 const user = factory.get("user");
 export default {
   data(){
     return{
-      nhanvien_ID:"",
+      selected_row:'',
+      ma_ND:"",
       search: "",
       text: "",
       timeout: 2000,
@@ -81,30 +97,30 @@ export default {
       items_user:[],
       headers_role: [
           { text: '', value: 'stt'},
-          { text: 'Mã ND', value: 'ma_nd'},
-          { text: 'Tên ND', value: 'ten_nd'},
           { text: 'ID Quyền', value: 'quyen_id'},
           { text: 'Quyền', value: 'ten_quyen'},
-          { text: 'ID Nhóm quyền', value: 'nhom_nd_id'}
+          { text: 'ID Nhóm ND', value: 'nhom_nd_id'},
+          { text: 'Nhóm ND', value: 'ten_nhom'}
         ],
       items_role:[],
       
     }
   },
   created(){
-    
+
   },
   mounted () {
     this.items_user=this.$store.getters.return_items_user;
     this.headers_user=this.$store.getters.return_headers_user;
   },
   methods:{
-      Nguoidung_Click(e){
-        
+    Nguoidung_Click_Row(e,k){
+
       var self=this;
-      if(self.nhanvien_ID!=e.nhanvien_ID){
+      self.selected_row=k;
+      if(self.ma_ND!=e.ma_ND){
         self.items_role=[];
-        user.Lay_DS_Quyen_Nguoidung(e.nhanvien_ID).then(response=>{
+        user.Lay_DS_Quyen_Nguoidung(e.ma_ND).then(response=>{
           if(response.data.success)
           {
             response.data.data.forEach(function(value, key){
@@ -114,14 +130,17 @@ export default {
                 ten_nd:value.ten_nd,
                 quyen_id:value.quyen_id,
                 ten_quyen:value.ten_quyen,
-                nhom_nd_id:value.nhom_nd_id
+                nhom_nd_id:value.nhom_nd_id,
+                ten_nhom:value.ten_nhom
               });
             });
           }
-          self.nhanvien_ID=e.nhanvien_ID;
+
+          self.ma_ND=e.ma_ND;
         }).catch(error=>{});
       }
-    }
+   },
+    
   
   },
  
@@ -131,12 +150,5 @@ export default {
 </script>
 
 <style>
-.v-text-field {
-  padding-top: 0px;
-  margin-top: 0px;
-}
-.v-data-table > .v-data-table__wrapper > table > thead > tr > th{
-  font-size: 1rem;
-  height: 35px;
-}
+@import '../../css/style.css';
 </style>

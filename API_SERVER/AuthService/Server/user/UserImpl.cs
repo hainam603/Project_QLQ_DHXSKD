@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using Dapper;
-using Microsoft.IdentityModel.Tokens;
 using Model;
 using Model.Connection;
 using Model.Connection.Oracle;
@@ -34,13 +30,13 @@ namespace AuthService.Server.user
                 if (conn.State == ConnectionState.Open)
                 {
                     var query = "API_01.Lay_ds_nguoi_dung";
-                    result = SqlMapper.Query<DanhsachNguoidungModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).ToList();
+                    result = SqlMapper.Query<NguoidungModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).ToList();
                     conn.Close();
                 }
 
                 datarespond.success = true;
                 datarespond.data = result;
-                datarespond.message = "get list users successfully";
+                datarespond.message = "Successfully";
 
             }
             catch (Exception ex)
@@ -52,13 +48,14 @@ namespace AuthService.Server.user
 
             return datarespond;
         }
-        public dynamic Lay_DS_Quyen_Nguoidung(string nhanvien_id)
+        //Quyền người dùng-----------------------------------------------------------
+        public dynamic Lay_DS_Quyen_Nguoidung(string ma_nd)
         {
             dynamic result = null;
             try
             {
                 var dyParam = new OracleDynamicParameters();
-                dyParam.Add("vnhanvien_id", OracleDbType.Int32, ParameterDirection.Input, nhanvien_id);
+                dyParam.Add("vma_nd", OracleDbType.Int32, ParameterDirection.Input, ma_nd);
                 dyParam.Add("cur_data", OracleDbType.RefCursor, ParameterDirection.Output);
 
                 var conn = connection.GetConnectionOracle();
@@ -75,7 +72,150 @@ namespace AuthService.Server.user
 
                 datarespond.success = true;
                 datarespond.data = result;
-                datarespond.message = "get list of user rights successfully";
+                datarespond.message = "Successfully";
+
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                datarespond.success = false;
+                datarespond.message = ex.Message;
+            }
+
+            return datarespond;
+        }
+        //Quyền menu------------------------------------------------------------------
+        public dynamic Lay_DS_Menu_Nguoidung(string ma_nd)
+        {
+            dynamic result = null;
+            try
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("vma_nd", OracleDbType.Int32, ParameterDirection.Input, ma_nd);
+                dyParam.Add("cur_data", OracleDbType.RefCursor, ParameterDirection.Output);
+
+                var conn = connection.GetConnectionOracle();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+                if (conn.State == ConnectionState.Open)
+                {
+                    var query = "API_01.get_ds_menu_By_ma_nd";
+                    result = SqlMapper.Query<MenuNguoidungModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).ToList();
+                    conn.Close();
+                }
+
+                datarespond.success = true;
+                datarespond.data = result;
+                datarespond.message = "Successfully";
+
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                datarespond.success = false;
+                datarespond.message = ex.Message;
+            }
+
+            return datarespond;
+        }
+        public dynamic Lay_DS_LoaiNV_Nguoidung(string ma_nd)
+        {
+            dynamic result = null;
+            try
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("vma_nd", OracleDbType.Int32, ParameterDirection.Input, ma_nd);
+                dyParam.Add("cur_data", OracleDbType.RefCursor, ParameterDirection.Output);
+
+                var conn = connection.GetConnectionOracle();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+                if (conn.State == ConnectionState.Open)
+                {
+                    var query = "API_01.get_ds_loainhanvien";
+                    result = SqlMapper.Query<LoaiNhanvienModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).ToList();
+                    conn.Close();
+                }
+
+                datarespond.success = true;
+                datarespond.data = result;
+                datarespond.message = "Successfully";
+
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                datarespond.success = false;
+                datarespond.message = ex.Message;
+            }
+
+            return datarespond;
+        }
+        //Quyền báo cáo ---------------------------------------------------------------
+        public dynamic Lay_DS_Nhombaocao_Nguoidung(string ma_nd)
+        {
+            dynamic result = null;
+            try
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("vma_nd", OracleDbType.Int32, ParameterDirection.Input, ma_nd);
+                dyParam.Add("cur_data", OracleDbType.RefCursor, ParameterDirection.Output);
+
+                var conn = connection.GetConnectionOracle();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+                if (conn.State == ConnectionState.Open)
+                {
+                    var query = "API_01.get_ds_nhombc_by_ma_nd";
+                    result = SqlMapper.Query<NhombaocaoModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).ToList();
+                    conn.Close();
+                }
+
+                datarespond.success = true;
+                datarespond.data = result;
+                datarespond.message = "Successfully";
+
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                datarespond.success = false;
+                datarespond.message = ex.Message;
+            }
+
+            return datarespond;
+        }
+        public dynamic Lay_DS_Baocao_Nguoidung(string ma_nd, string nhom_bc_id)
+        {
+            dynamic result = null;
+            try
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("vma_nd", OracleDbType.Int32, ParameterDirection.Input, ma_nd);
+                dyParam.Add("vnhom_bc_id", OracleDbType.Int32, ParameterDirection.Input, nhom_bc_id);
+                dyParam.Add("cur_data", OracleDbType.RefCursor, ParameterDirection.Output);
+
+                var conn = connection.GetConnectionOracle();
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+                if (conn.State == ConnectionState.Open)
+                {
+                    var query = "API_01.get_ds_baocao_by_nhom_bc_ma_nd";
+                    result = SqlMapper.Query<BaocaoModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).ToList();
+                    conn.Close();
+                }
+
+                datarespond.success = true;
+                datarespond.data = result;
+                datarespond.message = "Successfully";
 
             }
             catch (Exception ex)

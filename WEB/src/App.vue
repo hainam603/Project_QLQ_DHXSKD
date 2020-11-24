@@ -129,7 +129,7 @@
                     color="red lighten-2"
                     content="6"
                   >
-                    <v-icon color="white"> mdi-bell </v-icon>
+                  <v-icon color="white" @click="Click_Thongbao_I8"> mdi-bell </v-icon>
                   </v-badge>
                 </v-btn>
               </v-card-text>
@@ -186,7 +186,6 @@ export default {
     snackbar: false,
     text: "",
     timeout: 2000,
-    items_user:[],
     loading: false,
     message: "",
     sideNav: false,
@@ -284,23 +283,28 @@ export default {
       var self=this;
       self.snackbar= true;
       self.text= "Đang lấy danh sách người dùng";
+      var items_user=[];
       user.Lay_DS_Nguoidung().then( response =>{
         if(response.data.success){
-          response.data.data.forEach(function(element,key){
-            self.items_user.push({
-              stt:key+1,
-              ma_ND:element.ma_ND,
-              ma_NV:element.ma_NV,
-              ten_NV:element.ten_NV,
-              so_DT:element.so_DT,
-              nhanvien_ID:element.nhanvien_ID,
-              trangThai:element.trangThai,
-              ghiChu:element.ghiChu,
-              ten_dv:element.ten_dv,
-              ten_dvql:element.ten_dvql
-            });
-          });
-          self.$store.commit("get_items_user", self.items_user);
+          items_user=response.data.data;
+          // response.data.data.forEach(function(element,key){
+          
+          //     items_user.push({
+          //     stt:key+1,
+          //     nguoidung_ID:element.nguoidung_ID,
+          //     ma_ND:element.ma_ND,
+          //     ma_NV:element.ma_NV,
+          //     ten_NV:element.ten_NV,
+          //     so_DT:element.so_DT,
+          //     nhanvien_ID:element.nhanvien_ID,
+          //     trangThai:element.trangThai,
+          //     ghiChu:element.ghiChu,
+          //     ten_dv:element.ten_dv,
+          //     ten_dvql:element.ten_dvql
+          //   });
+          // });
+        
+          self.$store.commit("get_items_user", items_user);
           self.snackbar= true;
           self.text= "Đã lấy xong dữ liệu người dùng";
         }
@@ -308,7 +312,7 @@ export default {
         self.snackbar= true;
         self.text= error;
       });
-      console.log("đã lấy xong dữ liệu")
+
       self.$router.push("/home");
       
     }
@@ -326,6 +330,10 @@ export default {
   },
 
   methods: {
+    Click_Thongbao_I8(){
+      // console.log("thong bao i8")
+      this.$router.push("/thongbao_i8");
+    },
     
     querySelections(v) {
       this.loading = true;

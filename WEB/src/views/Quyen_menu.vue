@@ -37,14 +37,27 @@
                 :items="items_user"
                 :search="search"
                 :items-per-page="5"
-                @click:row="handleClick"
-              ></v-data-table>
+              >
+              <template v-slot:body="{ items }">
+                <tbody>
+                  <tr :class="key === selected_row ? 'custom-highlight-row' : ''" 
+                  @click="Nguoidung_Click_Row(item,key)" 
+                  v-for="(item, key) in items" 
+                  :key="item.stt">
+                    <td>{{ key+1 }}</td>
+                    <td>{{ item.ma_ND }}</td>
+                    <td>{{ item.ten_NV }}</td>
+                    <td>{{ item.ten_dv }}</td>
+                  </tr>
+                </tbody>
+              </template>
+              </v-data-table>
             </v-card>
           </template>
               
         </v-col>
 
-        <v-col cols="3">
+        <v-col cols="3.5">
            <template>
             <v-card style="min-height: 490px;">
               <v-card-title>
@@ -61,35 +74,15 @@
           </template>     
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="3.5">
            <template>
             <v-card style="min-height: 490px;">
               <v-card-title>
-                Thông tin người dùng
-                <v-container>
-                <v-row style="font-size:14px">
-                  <v-row>
-                    <v-col cols="4">
-                      Nhân viên:
-                    </v-col>
-                    <v-col cols="8">
-                      HCM021012 - Lê Bùi Hải Nam
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="4">
-                      Nhóm người dùng:
-                    </v-col>
-                    <v-col cols="8">
-                      Phát triển hệ thống
-                    </v-col>
-                  </v-row>
-                </v-row>
-                </v-container>
+                Danh sách loại nhân viên
               </v-card-title>
               <v-data-table
-                :headers="headers_role"
-                :items="items_role"
+                :headers="headers_toe"
+                :items="items_toe"
                 :items-per-page="5"
               >
               </v-data-table>
@@ -103,45 +96,64 @@
 </template>
 
 <script>
+import factory from "../services/factory/repositoryfactory";
+const user = factory.get("user");
 export default {
   data(){
     return{
+      selected_row:null,
+      ma_ND:'',
       search: "",
       headers_user: [],
       items_user:[],
       headers_menu: [
-          { text: 'Menu Chức năng', value: 'chuc_nang'}
+          { text: '', value: 'stt'},
+          { text: 'Menu', value: 'ten_hienthi'}
         ],
-      items_menu:[
-        {chuc_nang:"Hệ thống"},
-        {chuc_nang:"Quản trị"},
-        {chuc_nang:"Dữ liệu"},
-        {chuc_nang:"Lập hợp đồng"},
-        {chuc_nang:"HĐ chưa phân công ĐV"},
-        {chuc_nang:"Gạch nợ"},
-        {chuc_nang:"Quản lý đại lý"},
-        {chuc_nang:"Cabman"},
-        {chuc_nang:"Thanh toán"},
-        {chuc_nang:"Quản lý địa bàn"}
-      ],
-      headers_role: [
-          { text: 'STT', value: 'stt'},
-          { text: 'Loại nhân viên', value: 'loai_nv'}
+      items_menu:[],
+      headers_toe: [
+          { text: '', value: 'stt'},
+          { text: 'Loại nhân viên', value: 'ten_loainv'}
         ],
-      items_role:[
-        {stt:"1",loai_nv:"Cộng tác viên"},
-        {stt:"2",loai_nv:"Quản trị hệ thống"},
-        {stt:"3",loai_nv:"Nhân viên tiếp thị"},
-        {stt:"4",loai_nv:"CTV - Thu hồi thiết bị"},
-      ]
+      items_toe:[]
     }
   },
   methods:{
-    handleClick(e){
-      console.log(e.ma_vn);
-      this.headers_menu[0].text = 'Menu chức năng của người dùng ' + e.ten_nv;
+   Nguoidung_Click_Row(e,k){
+      var self=this;
+      self.selected_row=k;
+      if(self.ma_ND!=e.ma_ND){
+        self.items_menu=[];
+        user.Lay_DS_Menu_Nguoidung(e.ma_ND).then(response=>{
 
-    }
+          if(response.data.success)
+          {
+            response.data.data.forEach(function(value, key){
+              self.items_menu.push({
+                stt:key+1,
+                ma_nd:value.ma_nd,
+                ten_nd:value.ten_nd,
+                menu_id:value.menu_id,
+                ten_hienthi:value.ten_hienthi
+              });
+            });
+          }
+          self.ma_ND=e.ma_ND;
+        }).catch(error=>{});
+        user.Lay_DS_LoaiNV_Nguoidung(e.ma_ND).then(response=>{
+          if(response.data.success)
+          response.data.data.forEach((element,key) => {
+            self.items_toe.push({
+                stt:key+1,
+                ma_nd:element.ma_nd,
+                loainv_id:element.loainv_id,
+                ten_loainv:element.ten_loainv,
+              });
+          });
+        }).catch();
+      }
+   },
+  
   },
   mounted () {
     this.items_user=this.$store.getters.return_items_user;
@@ -152,12 +164,5 @@ export default {
 </script>
 
 <style>
-.v-text-field {
-  padding-top: 0px;
-  margin-top: 0px;
-}
-.v-data-table > .v-data-table__wrapper > table > thead > tr > th{
-  font-size: 1rem;
-  height: 35px;
-}
+@import '../css/style.css';
 </style>

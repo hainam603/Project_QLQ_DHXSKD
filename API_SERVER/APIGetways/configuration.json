@@ -30,6 +30,23 @@
                 "AllowedScopes": []
             }
 
+        },
+        {
+            "DownstreamPathTemplate": "/api/notification/{}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ],
+            "UpstreamPathTemplate": "/notification/{}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "TestKey",
+                "AllowedScopes": []
+            }
+
         }
     ],
     "GlobalConfiguration": {

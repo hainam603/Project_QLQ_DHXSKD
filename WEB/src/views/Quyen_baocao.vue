@@ -37,39 +37,62 @@
                 :items="items_user"
                 :search="search"
                 :items-per-page="5"
-                @click:row="handleClick"
-              ></v-data-table>
+              >
+              <template v-slot:body="{ items }">
+                <tbody>
+                  <tr :class="key === selected_row ? 'custom-highlight-row' : ''" 
+                  @click="Nguoidung_Click_Row(item,key)" 
+                  v-for="(item, key) in items" 
+                  :key="item.stt">
+                    <td>{{ key+1 }}</td>
+                    <td>{{ item.ma_ND }}</td>
+                    <td>{{ item.ten_NV }}</td>
+                    <td>{{ item.ten_dv }}</td>
+                  </tr>
+                </tbody>
+              </template>
+              </v-data-table>
             </v-card>
           </template>
               
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="3.5">
            <template>
             <v-card style="min-height: 490px;">
               <v-card-title>
                 Danh sách nhóm báo cáo người dùng
               </v-card-title>
               <v-data-table
-                :headers="headers_menu"
-                :items="items_menu"
+                :headers="headers_grp"
+                :items="items_grp"
                 :items-per-page="5"
               >
-              
+              <template v-slot:body="{ items }">
+                <tbody>
+                  <tr :class="key === selected_row_grp ? 'custom-highlight-row' : ''" 
+                  @click="NhomBC_Click_Row(item,key)" 
+                  v-for="(item, key) in items" 
+                  :key="item.stt">
+                    <td>{{ key+1 }}</td>
+                    <td>{{ item.ten_nhom }}</td>
+                  </tr>
+                </tbody>
+              </template>
               </v-data-table>
             </v-card>
           </template>     
         </v-col>
 
-        <v-col cols="3">
+        <v-col cols="3.5">
            <template>
             <v-card style="min-height: 490px;">
               <v-card-title>
                 Danh sách báo cáo
               </v-card-title>
               <v-data-table
-                :headers="headers_role"
-                :items="items_role"
+                :headers="headers_rp"
+                :items="items_rp"
                 :items-per-page="5"
               >
               </v-data-table>
@@ -83,53 +106,70 @@
 </template>
 
 <script>
+import factory from "../services/factory/repositoryfactory";
+const user = factory.get("user");
 export default {
   data(){
     return{
       search: "",
+      ma_ND:'',
+      nhom_bc_id:'',
+      selected_row_grp:null,
+      selected_row:null,
       headers_user: [],
       items_user:[],
-      headers_menu: [
+      headers_grp: [
           { text: '', value: 'stt'},
           { text: 'Nhóm báo cáo', value: 'chuc_nang'}
         ],
-      items_menu:[
-        {stt:"1",chuc_nang:"Báo cáo theo dõi dòng tiền thu cước, hoàn mạng, dịch vụ (HPG)"},
-        {stt:"2",chuc_nang:"Báo cáo PTTB HCM phát triển"},
-        {stt:"3",chuc_nang:"Kiểm kê công nợ"},
-        {stt:"4",chuc_nang:"8 .Báo Cáo Kế Toán"},
-        {stt:"5",chuc_nang:"TTCNTT Báo cáo quản lý vật tư"},
-        {stt:"6",chuc_nang:"Kiểm kê công nợ"},
-        {stt:"7",chuc_nang:"Báo cáo Outbound"},
-        {stt:"8",chuc_nang:"2. Báo Cáo Bưu Cục_ Bưu Điện Trung Tâm và Bưu Điện Thành Phố"},
-        {stt:"9",chuc_nang:"3. Báo Cáo Điểm Giao Dịch"},
-        {stt:"10",chuc_nang:"Báo cáo thù lao thu cước - 2018"}
-      ],
-      headers_role: [
+      items_grp:[],
+      headers_rp: [
           { text: '', value: 'stt'},
-          { text: 'Báo cáo', value: 'loai_nv'}
+          { text: 'Báo cáo', value: 'ten_bc'}
         ],
-      items_role:[
-        {stt:"1",loai_nv:"Báo cáo tổng hợp doanh thu"},
-        {stt:"2",loai_nv:"Chi tiết Cước ĐNHM dịch vụ TSL"},
-        {stt:"3",loai_nv:"Nguyên nhân thanh lý dịch vụ TSL "},
-        {stt:"4",loai_nv:"01/PLNPTh - Bảng phân loại nợ phải thu"},
-        {stt:"5",loai_nv:"01/XLPTh - Bảng tổng hợp các khoản phải thu khó đòi"},
-        {stt:"6",loai_nv:"01/ĐCPTh - Danh sách đối tượng gửi thư xác nhận công nợ phải thu"},
-        {stt:"7",loai_nv:"01TH - Báo cáo tổng hợp biến động nợ khách hàng (new)"},
-        {stt:"8",loai_nv:"01_TTCUVT_Báo cáo tồn ONT mới (Tập Đoàn)"},
-        {stt:"9",loai_nv:"02/ĐCPTh - Bảng phân công công việc gửi thư xác nhận"},
-        {stt:"10",loai_nv:"026 C41-Khảo Sát Khách Hàng"},
-        
-      ]
+      items_rp:[]
     }
   },
   methods:{
-    handleClick(e){
-      console.log(e.ma_vn);
-      // this.headers_menu[0].text = 'Nhóm báo cáo của người dùng ' + e.ten_nv;
-
-    }
+    Nguoidung_Click_Row(e,k){
+      var self=this;
+      self.selected_row=k;
+      if(self.ma_ND!=e.ma_nd){
+        self.items_grp=[];
+        user.Lay_DS_Nhombaocao_Nguoidung(e.ma_ND).then(response=>{
+          if(response.data.success)
+          {
+           self.items_grp=response.data.data;
+          }
+          self.ma_ND=e.ma_ND;
+        }).catch(error=>{});
+      }
+   },
+   NhomBC_Click_Row(e,k){
+      var self=this;
+      self.selected_row_grp=k;
+      if(self.nhom_bc_id!=e.nhom_bc_id){
+        
+        self.items_rp=[];
+        user.Lay_DS_Baocao_Nguoidung(e.ma_nd, e.nhom_bc_id).then(response=>{
+          if(response.data.success)
+          {
+ 
+            response.data.data.forEach((element,key) => {
+              self.items_rp.push({
+                stt:key+1,
+                ma_nd:element.ma_nd,
+                baocao_id:element.baocao_id,
+                ten_bc:element.ten_bc,
+                ten_nhom:element.ten_nhom
+              });    
+            }); 
+          }
+        self.nhom_bc_id=e.nhom_bc_id;
+        }).catch(error=>{});
+        
+      }
+   },
   },
   mounted () {
     this.items_user=this.$store.getters.return_items_user;
@@ -140,12 +180,5 @@ export default {
 </script>
 
 <style>
-.v-text-field {
-  padding-top: 0px;
-  margin-top: 0px;
-}
-.v-data-table > .v-data-table__wrapper > table > thead > tr > th{
-  font-size: 1rem;
-  height: 35px;
-}
+@import '../css/style.css';
 </style>

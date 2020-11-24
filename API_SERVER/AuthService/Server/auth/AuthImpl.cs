@@ -20,7 +20,7 @@ namespace AuthService.Server.auth
         {
             var datarespond = new DataRespond();
             var connection = new Connection();
-            var result = new NguoiDungModel();
+            var result = new NguoiDungLoginModel();
             try
             {
                 var dyParam = new OracleDynamicParameters();
@@ -36,7 +36,7 @@ namespace AuthService.Server.auth
                 if (conn.State == ConnectionState.Open)
                 {
                     var query = "API_01.Lay_thong_tin_login";
-                    result = SqlMapper.Query<NguoiDungModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    result = SqlMapper.Query<NguoiDungLoginModel>(conn, query, param: dyParam, commandType: CommandType.StoredProcedure).FirstOrDefault();
                     conn.Close();
                 }
                 if (result.message != "0")

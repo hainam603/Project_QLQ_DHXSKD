@@ -26,8 +26,12 @@
                 Danh sách thuê bao không ghép được cước
                <v-file-input style="padding:0px 50px;"
                 label="Tải lên danh sách thuê bao"
+                @change="selectFile"
+                accept=".xlsx, .xls"
+                prepend-icon="mdi-file-excel"
                 truncate-length="15"
                 ></v-file-input>
+    
                 <v-btn
                 color="primary"
                 elevation="2"
@@ -60,6 +64,8 @@ export default {
   data(){
     return{
       search: "",
+      progress: "",
+      currentFile:"",
       headers_tb: [
           { text: '', value: 'stt'},
           { text: 'ID thuê bao', value: 'thuebao_id' },
@@ -80,31 +86,7 @@ export default {
             {stt:"9",thuebao_id:"2890227",ten_tb:"LY NGUYEN TICH",dichvu:"Fiber",ngay_cn:"05-MAY-15",ngay_ins:"05-MAY-15"},
             {stt:"10",thuebao_id:"2891885",ten_tb:"NGUYEN BA HIEN",dichvu:"Fiber",ngay_cn:"05-MAY-15",ngay_ins:"05-MAY-15"}        
       ],
-      headers_menu: [
-          { text: 'Menu Chức năng', value: 'chuc_nang'}
-        ],
-      items_menu:[
-        {chuc_nang:"Hệ thống"},
-        {chuc_nang:"Quản trị"},
-        {chuc_nang:"Dữ liệu"},
-        {chuc_nang:"Lập hợp đồng"},
-        {chuc_nang:"HĐ chưa phân công ĐV"},
-        {chuc_nang:"Gạch nợ"},
-        {chuc_nang:"Quản lý đại lý"},
-        {chuc_nang:"Cabman"},
-        {chuc_nang:"Thanh toán"},
-        {chuc_nang:"Quản lý địa bàn"}
-      ],
-      headers_role: [
-          { text: 'STT', value: 'stt'},
-          { text: 'Loại nhân viên', value: 'loai_nv'}
-        ],
-      items_role:[
-        {stt:"1",loai_nv:"Cộng tác viên"},
-        {stt:"2",loai_nv:"Quản trị hệ thống"},
-        {stt:"3",loai_nv:"Nhân viên tiếp thị"},
-        {stt:"4",loai_nv:"CTV - Thu hồi thiết bị"},
-      ]
+      
     }
   },
   methods:{
@@ -112,7 +94,86 @@ export default {
       console.log(e.ma_vn);
       this.headers_menu[0].text = 'Menu chức năng của người dùng ' + e.ten_nv;
 
-    }
+    },
+    selectFile(file) {
+      var self=this;
+        if(file){
+            if((file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') 
+                || (file.type == 'application/vnd.ms-excel')){
+                self.import_data_from_excel();
+            } else {
+                self.$message({
+                    type:'warning',
+                    message:'File không đúng định dạng'
+                })
+            }
+        } 
+    },
+
+    import_data_from_excel() {
+          let self = this;
+          let inputDOM = self.$refs.inputer;
+          // Retrieving file data through DOM
+
+          self.file = event.currentTarget.files[0];
+
+          var rABS = false; //Read the file as a binary string
+          var f = self.file;
+
+          var reader = new FileReader();
+          //if (!FileReader.prototype.readAsBinaryString) {
+          FileReader.prototype.readAsBinaryString = function(f) {
+              var binary = "";
+              var rABS = false; //Read the file as a binary string
+              var pt = self;
+              var wb; //Read completed data
+              var outdata;
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                  var bytes = new Uint8Array(reader.result);
+                  var length = bytes.byteLength;
+                  for (var i = 0; i < length; i++) {
+                      binary += String.fromCharCode(bytes[i]);
+                  }
+                  //If not introduced in main.js, you need to introduce it here to parse excel
+                  var XLSX = require("xlsx");
+                  if (rABS) {
+                      wb = XLSX.read(btoa(fixdata(binary)), {
+                      //Manual conversion
+                      type: "base64"
+                      });
+                  } else {
+                      wb = XLSX.read(binary, {
+                      type: "binary"
+                      });
+                  }
+                  outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]); 
+                  if("MA_TB" in outdata[0])
+                  {
+                    var arr_ma_tb=[];
+                    outdata.forEach(function(element,key){
+                      arr_ma_tb.push(
+                        element.MA_TB
+                      )
+                    });
+                    console.log(arr_ma_tb);
+                  }else
+                  {
+                    self.$message({
+                    type:'warning',
+                    message:"File vừa tải lên không có dữ liệu 'MA_TB'"
+                })
+                  }
+              };
+              reader.readAsArrayBuffer(f);
+          };
+          if (rABS) {
+              reader.readAsArrayBuffer(f);
+          } else {
+              reader.readAsBinaryString(f);
+          }
+      }
+
   }
 
 }

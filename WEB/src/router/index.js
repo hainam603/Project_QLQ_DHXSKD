@@ -11,6 +11,7 @@ import Quyen_baocao from "../views/Quyen_baocao.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Rasoat_thuebao from "../views/Rasoat_thuebao.vue";
 import kiemtra_session from "../services/Kiemtra_Session";
+import Thongbao_I8 from "../views/Thongbao_I8";
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,12 @@ const routes = [
     name: "Rasoat_thuebao",
     component: Rasoat_thuebao,
     meta: { requiresAuth: true,title: "Rà soát thuê bao" },
+  },
+  {
+    path: "/thongbao_i8",
+    name: "Thongbao_I8",
+    component: Thongbao_I8,
+    meta: { requiresAuth: true,title: "Thông báo I8" },
   },
   {
     path: "/signin",

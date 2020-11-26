@@ -29,13 +29,15 @@
                   append-icon="mdi-magnify"
                   label="Tìm kiếm người dùng"
                   single-line
+                  clearable
                   hide-details
                 ></v-text-field>
               </v-card-title>
               <v-data-table
                 :headers="headers_user"
-                :items="items_user"
+                dense
                 :search="search"
+                :items="items_user"
                 :items-per-page="5"
 
               >
@@ -93,8 +95,8 @@ export default {
       timeout: 2000,
       snackbar:false,
       loading_user:false,
-      headers_user: [],
-      items_user:[],
+      // headers_user: [],
+      // items_user:[],
       headers_role: [
           { text: '', value: 'stt'},
           { text: 'ID Quyền', value: 'quyen_id'},
@@ -109,9 +111,13 @@ export default {
   created(){
 
   },
-  mounted () {
-    this.items_user=this.$store.getters.return_items_user;
-    this.headers_user=this.$store.getters.return_headers_user;
+  computed: {
+    items_user(){
+       return this.$store.getters.return_items_user;
+      
+      this.loading_user=false;
+      },
+    headers_user(){return this.$store.getters.return_headers_user;}
   },
   methods:{
     Nguoidung_Click_Row(e,k){

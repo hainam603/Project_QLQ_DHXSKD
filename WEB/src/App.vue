@@ -278,46 +278,46 @@ export default {
     ],
   }),
   created(){
-    if(kt.getTokenByLocal()){
+    // if(kt.getTokenByLocal()){
      
-      var self=this;
-      self.snackbar= true;
-      self.text= "Đang lấy danh sách người dùng";
-      var items_user=[];
-      user.Lay_DS_Nguoidung().then( response =>{
-        if(response.data.success){
-          items_user=response.data.data;
-          // response.data.data.forEach(function(element,key){
+    //   var self=this;
+    //   self.snackbar= true;
+    //   self.text= "Đang lấy danh sách người dùng";
+    //   var items_user=[];
+    //   user.Lay_DS_Nguoidung().then( response =>{
+    //     if(response.data.success){
+    //       items_user=response.data.data;
+    //       // response.data.data.forEach(function(element,key){
           
-          //     items_user.push({
-          //     stt:key+1,
-          //     nguoidung_ID:element.nguoidung_ID,
-          //     ma_ND:element.ma_ND,
-          //     ma_NV:element.ma_NV,
-          //     ten_NV:element.ten_NV,
-          //     so_DT:element.so_DT,
-          //     nhanvien_ID:element.nhanvien_ID,
-          //     trangThai:element.trangThai,
-          //     ghiChu:element.ghiChu,
-          //     ten_dv:element.ten_dv,
-          //     ten_dvql:element.ten_dvql
-          //   });
-          // });
+    //       //     items_user.push({
+    //       //     stt:key+1,
+    //       //     nguoidung_ID:element.nguoidung_ID,
+    //       //     ma_ND:element.ma_ND,
+    //       //     ma_NV:element.ma_NV,
+    //       //     ten_NV:element.ten_NV,
+    //       //     so_DT:element.so_DT,
+    //       //     nhanvien_ID:element.nhanvien_ID,
+    //       //     trangThai:element.trangThai,
+    //       //     ghiChu:element.ghiChu,
+    //       //     ten_dv:element.ten_dv,
+    //       //     ten_dvql:element.ten_dvql
+    //       //   });
+    //       // });
         
-          self.$store.commit("get_items_user", items_user);
-          self.snackbar= true;
-          self.text= "Đã lấy xong dữ liệu người dùng";
-        }
-      }).catch(error=>{
-        self.snackbar= true;
-        self.text= error;
-      });
+    //       self.$store.commit("get_items_user", items_user);
+    //       self.snackbar= true;
+    //       self.text= "Đã lấy xong dữ liệu người dùng";
+    //     }
+    //   }).catch(error=>{
+    //     self.snackbar= true;
+    //     self.text= error;
+    //   });
 
-      self.$router.push("/home");
+    //   // self.$router.push("/home");
       
-    }
-    else
-      console.log("Chưa có user đăng nhập");
+    // }
+    // else
+    //   console.log("Chưa có user đăng nhập");
   },
   watch: {
     search(val) {

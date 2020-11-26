@@ -22,6 +22,12 @@ const routes = [
     component: Home,
     meta: { requiresAuth: true,title: "Home" },
   },
+  // {
+  //   path: "*",
+  //   name: "Home",
+  //   component: Home,
+  //   meta: { requiresAuth: true,title: "Home" },
+  // },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -98,8 +104,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-const kt=kiemtra_session;
+
 router.beforeEach((to, from, next) => {
+  const kt=kiemtra_session;
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (kt.getTokenByLocal()) {
       next();

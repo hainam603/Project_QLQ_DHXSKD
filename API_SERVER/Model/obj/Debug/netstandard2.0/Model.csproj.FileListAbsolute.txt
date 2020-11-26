@@ -16,3 +16,12 @@ D:\Projects\QLQ_DHSXKD\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard
 D:\Projects\QLQ_DHSXKD\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard2.0\Model.csproj.CoreCompileInputs.cache
 D:\Projects\QLQ_DHSXKD\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard2.0\Model.dll
 D:\Projects\QLQ_DHSXKD\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard2.0\Model.pdb
+E:\Github\Project_QLQ_DHXSKD\API_SERVER\Model\bin\Debug\netstandard2.0\Model.deps.json
+E:\Github\Project_QLQ_DHXSKD\API_SERVER\Model\bin\Debug\netstandard2.0\Model.dll
+E:\Github\Project_QLQ_DHXSKD\API_SERVER\Model\bin\Debug\netstandard2.0\Model.pdb
+E:\Github\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard2.0\Model.csprojAssemblyReference.cache
+E:\Github\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard2.0\Model.AssemblyInfoInputs.cache
+E:\Github\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard2.0\Model.AssemblyInfo.cs
+E:\Github\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard2.0\Model.csproj.CoreCompileInputs.cache
+E:\Github\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard2.0\Model.dll
+E:\Github\Project_QLQ_DHXSKD\API_SERVER\Model\obj\Debug\netstandard2.0\Model.pdb

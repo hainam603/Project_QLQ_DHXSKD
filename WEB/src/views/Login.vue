@@ -196,9 +196,8 @@ export default {
             var nexthour = new Date();
             nexthour.setDate(today.getDate() + 1);
             document.cookie = "token_session=" + JSON.stringify(value) + ";expires =" +nexthour +"";
-            // self.$router.push("/home");
             window.location.href = "/";
-
+            self.$store.commit("get_items_user", items_user);
         }
         else
         {

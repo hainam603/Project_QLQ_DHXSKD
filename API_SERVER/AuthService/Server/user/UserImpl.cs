@@ -12,8 +12,8 @@ namespace AuthService.Server.user
 {
     public class UserImpl : Iuser
     {
-        DataRespond datarespond = new DataRespond();
-        Connection connection = new Connection();
+        readonly DataRespond datarespond = new DataRespond();
+        readonly Connection connection = new Connection();
         public dynamic Lay_DS_Nguoidung()
         {
             dynamic result = null;

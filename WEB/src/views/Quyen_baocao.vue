@@ -29,6 +29,7 @@
                   append-icon="mdi-magnify"
                   label="Tìm kiếm người dùng"
                   single-line
+                  clearable
                   hide-details
                 ></v-text-field>
               </v-card-title>

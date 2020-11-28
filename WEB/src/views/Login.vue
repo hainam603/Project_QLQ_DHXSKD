@@ -17,7 +17,7 @@
                     <v-form
                       v-model="valid"
                       class="signup-form-form"
-                      @submit.prevent="login"
+                      @submit.prevent="Click_Login"
                     >
                       <h1
                         class="text-center display-1 mb-10"
@@ -118,11 +118,12 @@
 </template>
 
 <script>
-
 import factory from "../services/factory/repositoryfactory";
 import kt_session from "../services/Kiemtra_Session";
 const auth = factory.get("auth");
-const kt=kt_session;
+const role = factory.get("role");
+const user = factory.get("user");
+const kt = kt_session;
 export default {
   name: "Login",
 
@@ -164,7 +165,6 @@ export default {
 
     // code của Nam
     token: "", //save token
-    loading:false,
 
     snackbar: false,
     text: "",
@@ -176,44 +176,98 @@ export default {
   methods: {
     kiemtra_session()
     {
-      if(kt.getTokenByLocal())
+      if(kt.get_token_session())
         this.$router.push("/home");
+    },
+    async Click_Login(){
+      var self=this;
+      self.loading=true;
+      self.text="Đang kiểm tra dữ liệu đăng nhập";
+      self.snackbar=true;
+      var result1 = await this.login();  
+      if(result1.code==1)
+      {
+      self.text="Đăng nhập thành công, đang kiểm tra quyền của người dùng";
+      self.snackbar=true;
+      var result2 = await this.lay_quyen_nguoidung(this.username, result1.value.token);
+        if(result2.code==1){
+          self.text="Kiểm tra quyền người dùng thành công, đang lấy danh sách người dùng";
+          self.snackbar=true;
+          var result3 = await this.lay_ds_nguoidung(result1.value.token);
+          if(result3.code==1){
+            self.text="Lấy danh sách người dùng thành công";
+            self.snackbar=true;
+            window.location.href = "/";
+          }else{
+            self.text="Đã có lỗi xảy ra, vui lòng liên hệ admin để xử lý";
+            self.snackbar=true;
+          }
+        }else{
+          self.text="Người dùng không có quyền truy cập, liên hệ admin để xử lý";
+          self.snackbar=true;
+          document.cookie = "token_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        }
+      }else{
+        self.text="Đăng nhập không thành công, kiểm tra lại thông tin người dùng, hoặc liên hệ admin để xử lý";
+        self.snackbar=true;
+      }
+      self.loading=false;
     },
     login()
     {
       var self=this;
-      self.loading=true;
-      var user={ma_ND:self.username, Matkhau:self.password}
-      auth.auth(user).then(response=>{
-        if (response.data.success) {
-          // debugger;
-            self.token = response.data.data.access_token;
+      var user={ma_ND:self.username, Matkhau:self.password};
+      var result = auth.auth(user).then(response=>{
+        if (response.data.success && response.data != null) {
             var value = {
                 usid: response.data.data.nguoidung.ma_ND,
                 token: response.data.data.token.access_token
             };
             var today = new Date();
             var nexthour = new Date();
-            nexthour.setDate(today.getDate() + 1);
+            nexthour.setDate(today.getDate() + response.data.data.token.expires_in/86400);
+            
             document.cookie = "token_session=" + JSON.stringify(value) + ";expires =" +nexthour +"";
-            // self.$router.push("/home");
-            window.location.href = "/";
 
+            return {"code":1, "value":value};
+            
         }
         else
-        {
-        //  self.$message.error('Sai thông tin đăng nhập');
-          self.text=response.data.message;
-          self.snackbar = true;
-        }
-        self.loading=false;
+          return {"code":0,"value":null};
       })
       .catch(error => {
-          //self.text="Đã có lỗi sảy ra, liên hệ admin để giải quyết";
-          self.text=response.data.message;
-          self.snackbar = true;
-          self.loading=false;
+          return {"code":0,"value":error};
+      });  
+      
+      return result;
+    },
+    lay_quyen_nguoidung(ma_nd,token){
+      var self=this;
+      var result = role.Lay_Quyen_Nguoidung(ma_nd,token).then(response=>{
+        if(response.data.success && response.data.data != null){
+            return {"code":1, "value":response.data.data.quyen_id};
+        }else
+          return {"code":0,"value":null};
+      }).catch(error=>{
+        return {"code":0, "value": error};
       });
+      return result;
+    },
+    lay_ds_nguoidung(token)
+    {
+      var self=this;
+      var result = user.Lay_DS_Nguoidung(token).then( response =>{
+        
+        if(response.data.success){
+          //self.$store.commit("get_items_user", response.data.data);
+            localStorage.setItem("ds_nguoidung",JSON.stringify(response.data.data));
+          return {"code":1, "value":response.data.data}
+        }
+      }).catch(error=>{
+        return {"code":0, "value":error};
+      });
+      return result;
+      
     }
   },
   watch: {

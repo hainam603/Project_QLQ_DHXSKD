@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import kt from "../services/Kiemtra_Session";
 import factory from "../services/factory/repositoryfactory";
 const user = factory.get("user");
 export default {
@@ -115,8 +116,12 @@ export default {
           { text: '', value: 'stt'},
           { text: 'Loại nhân viên', value: 'ten_loainv'}
         ],
-      items_toe:[]
+      items_toe:[],
+      token:'',
     }
+  },
+  created(){
+    this.token=kt.getTokenByLocal();
   },
   methods:{
    Nguoidung_Click_Row(e,k){
@@ -124,7 +129,8 @@ export default {
       self.selected_row=k;
       if(self.ma_ND!=e.ma_ND){
         self.items_menu=[];
-        user.Lay_DS_Menu_Nguoidung(e.ma_ND).then(response=>{
+        self.items_toe=[];
+        user.Lay_DS_Menu_Nguoidung(e.ma_ND,self.token).then(response=>{
 
           if(response.data.success)
           {
@@ -140,7 +146,7 @@ export default {
           }
           self.ma_ND=e.ma_ND;
         }).catch(error=>{});
-        user.Lay_DS_LoaiNV_Nguoidung(e.ma_ND).then(response=>{
+        user.Lay_DS_LoaiNV_Nguoidung(e.ma_ND,self.token).then(response=>{
           if(response.data.success)
           response.data.data.forEach((element,key) => {
             self.items_toe.push({
@@ -156,7 +162,8 @@ export default {
   
   },
   mounted () {
-    this.items_user=this.$store.getters.return_items_user;
+    // this.items_user=this.$store.getters.return_items_user;
+    this.items_user= JSON.parse(localStorage.ds_nguoidung);
     this.headers_user=this.$store.getters.return_headers_user;
   },
 

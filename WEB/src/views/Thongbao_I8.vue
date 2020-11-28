@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import kt from "../services/Kiemtra_Session";
 import factory from "../services/factory/repositoryfactory";
 const notification = factory.get("notification");
 export default {
@@ -143,10 +144,14 @@ export default {
 
       text:'',
       snackbar:false,
-      timeout:2000
+      timeout:2000,
+      token:'',
      
       
     }
+  },
+  created(){
+    this.token=kt.getTokenByLocal();
   },
   methods:{
     Click_Xem(){
@@ -157,7 +162,7 @@ export default {
       if(self.option_value=='0'){
         self.snackbar= true;
         self.text= "Đang lấy dữ liệu...";
-        notification.Lay_DS_Thaydoi_I8(dates).then(response =>{
+        notification.Lay_DS_Thaydoi_I8(dates,self.token).then(response =>{
           if(response.data.success){
             response.data.data.forEach((element, key) => {
               self.items_i8.push({

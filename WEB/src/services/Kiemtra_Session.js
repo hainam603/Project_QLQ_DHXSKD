@@ -1,5 +1,15 @@
 export default {
     getTokenByLocal() {
+        var section_local = this.getCookie("token_session");
+        if (section_local) {
+          var tok = this.strToObj(this.getCookie("token_session"));
+          // console.log(tok.token);
+          return tok.token;
+        }
+        return "";
+      
+      },
+    get_token_session() {
         var self=this;
         var section_local = self.getCookie("token_session");
         if (section_local) {

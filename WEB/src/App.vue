@@ -163,6 +163,7 @@
             text
             v-bind="attrs"
             @click="snackbar = false"
+            :timeout="timeout"
           >
             Đóng
           </v-btn>
@@ -278,46 +279,16 @@ export default {
     ],
   }),
   created(){
-    if(kt.getTokenByLocal()){
-     
-      var self=this;
-      self.snackbar= true;
-      self.text= "Đang lấy danh sách người dùng";
-      var items_user=[];
-      user.Lay_DS_Nguoidung().then( response =>{
-        if(response.data.success){
-          items_user=response.data.data;
-          // response.data.data.forEach(function(element,key){
-          
-          //     items_user.push({
-          //     stt:key+1,
-          //     nguoidung_ID:element.nguoidung_ID,
-          //     ma_ND:element.ma_ND,
-          //     ma_NV:element.ma_NV,
-          //     ten_NV:element.ten_NV,
-          //     so_DT:element.so_DT,
-          //     nhanvien_ID:element.nhanvien_ID,
-          //     trangThai:element.trangThai,
-          //     ghiChu:element.ghiChu,
-          //     ten_dv:element.ten_dv,
-          //     ten_dvql:element.ten_dvql
-          //   });
-          // });
-        
-          self.$store.commit("get_items_user", items_user);
-          self.snackbar= true;
-          self.text= "Đã lấy xong dữ liệu người dùng";
-        }
-      }).catch(error=>{
-        self.snackbar= true;
-        self.text= error;
-      });
-
-      self.$router.push("/home");
-      
+    if(this.Kiemtra_Hotro_LocalStorage()){
+      if(!kt.get_token_session()){
+        this.$router.push('/logout');
+      }
+    }else{
+       this.$router.push('/logout');
+       this.text="Trình duyệt hiện không hỗ trợ LocalStorage, vui lòng cập nhật lên phiên bản mới nhất để sử dụng ứng dụng";
+       this.timeout=-1;
+       this.snackbar=true;
     }
-    else
-      console.log("Chưa có user đăng nhập");
   },
   watch: {
     search(val) {
@@ -330,6 +301,12 @@ export default {
   },
 
   methods: {
+    Kiemtra_Hotro_LocalStorage(){
+      if (typeof(Storage) !== 'undefined') 
+        return true;
+      else 
+        return false;
+    },
     Click_Thongbao_I8(){
       // console.log("thong bao i8")
       this.$router.push("/thongbao_i8");

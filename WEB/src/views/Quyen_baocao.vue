@@ -106,6 +106,7 @@
 </template>
 
 <script>
+import kt from "../services/Kiemtra_Session";
 import factory from "../services/factory/repositoryfactory";
 const user = factory.get("user");
 export default {
@@ -127,8 +128,13 @@ export default {
           { text: '', value: 'stt'},
           { text: 'Báo cáo', value: 'ten_bc'}
         ],
-      items_rp:[]
+      items_rp:[],
+      token:"",
     }
+  },
+  created(){
+    this.token=kt.getTokenByLocal();
+
   },
   methods:{
     Nguoidung_Click_Row(e,k){
@@ -136,7 +142,7 @@ export default {
       self.selected_row=k;
       if(self.ma_ND!=e.ma_nd){
         self.items_grp=[];
-        user.Lay_DS_Nhombaocao_Nguoidung(e.ma_ND).then(response=>{
+        user.Lay_DS_Nhombaocao_Nguoidung(e.ma_ND,self.token).then(response=>{
           if(response.data.success)
           {
            self.items_grp=response.data.data;
@@ -151,7 +157,7 @@ export default {
       if(self.nhom_bc_id!=e.nhom_bc_id){
         
         self.items_rp=[];
-        user.Lay_DS_Baocao_Nguoidung(e.ma_nd, e.nhom_bc_id).then(response=>{
+        user.Lay_DS_Baocao_Nguoidung(e.ma_nd, e.nhom_bc_id, self.token).then(response=>{
           if(response.data.success)
           {
  
@@ -172,7 +178,9 @@ export default {
    },
   },
   mounted () {
-    this.items_user=this.$store.getters.return_items_user;
+    
+    // this.items_user=this.$store.getters.return_items_user;
+    this.items_user= JSON.parse(localStorage.ds_nguoidung);
     this.headers_user=this.$store.getters.return_headers_user;
   },
 

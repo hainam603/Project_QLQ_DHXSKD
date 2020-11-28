@@ -75,13 +75,34 @@
           </template>     
         </v-col>
       </v-row> 
+      <v-snackbar
+        outlined
+        color="#303F9F"
+        top
+        v-model="snackbar"
+        :timeout="timeout"
+      >
+        {{ text }}
+  
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="blue"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+            :timeout="timeout"
+          >
+            Đóng
+          </v-btn>
+        </template>
+      </v-snackbar>
   </div>
   
 </template>
 
 <script>
+import kt from "../../services/Kiemtra_Session";
 import factory from "../../services/factory/repositoryfactory";
-import a from "../../css/style.css"
 const user = factory.get("user");
 export default {
   data(){
@@ -103,14 +124,18 @@ export default {
           { text: 'Nhóm ND', value: 'ten_nhom'}
         ],
       items_role:[],
+      token:"",
       
     }
   },
   created(){
-
+    this.token=kt.getTokenByLocal();
+    
   },
   mounted () {
-    this.items_user=this.$store.getters.return_items_user;
+    // this.items_user=this.$store.getters.return_items_user;
+
+    this.items_user= JSON.parse(localStorage.ds_nguoidung);
     this.headers_user=this.$store.getters.return_headers_user;
   },
   methods:{
@@ -120,7 +145,8 @@ export default {
       self.selected_row=k;
       if(self.ma_ND!=e.ma_ND){
         self.items_role=[];
-        user.Lay_DS_Quyen_Nguoidung(e.ma_ND).then(response=>{
+        user.Lay_DS_Quyen_Nguoidung(e.ma_ND, self.token).then(response=>{
+          if(response.data)
           if(response.data.success)
           {
             response.data.data.forEach(function(value, key){
@@ -137,7 +163,14 @@ export default {
           }
 
           self.ma_ND=e.ma_ND;
-        }).catch(error=>{});
+        }).catch(error=>{
+          if (error.response && error.response.status === 401){
+            self.text="Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại"
+            self.snackbar=true;
+            self.$router.push('/logout');
+          }
+              
+        });
       }
    },
     

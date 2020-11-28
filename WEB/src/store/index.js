@@ -21,17 +21,20 @@ export default new Vuex.Store({
   },
   getters: {
     return_items_user: state => {
+      
       return state.items_user
+    
     },
     return_headers_user: state => {
       return state.headers_user
+    
     }
  
   },
   mutations: {
     get_items_user (state, payload) {
       state.items_user = payload
-      debugger;
+      
     }
  
   },

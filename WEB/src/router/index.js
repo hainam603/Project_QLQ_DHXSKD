@@ -12,6 +12,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Rasoat_thuebao from "../views/Rasoat_thuebao.vue";
 import kiemtra_session from "../services/Kiemtra_Session";
 import Thongbao_I8 from "../views/Thongbao_I8";
+import Error from "../views/Error";
 
 Vue.use(VueRouter);
 
@@ -72,6 +73,12 @@ const routes = [
     path: "/signin",
     name: "Signin",
     component: Signin,
+    meta: {},
+  },
+  {
+    path: "/erro",
+    name: "Error",
+    component: Error,
     meta: {},
   },
   // {

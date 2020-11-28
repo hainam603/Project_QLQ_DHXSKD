@@ -3,12 +3,12 @@ import axios from "axios";
 // const baseUrl = `${baseDomain}/api`;
 const baseDomain = "http://localhost:5000";
 const baseUrl = `${baseDomain}`;
-var token = getTokenByLocal();
+// var token = getTokenByLocal();
 const instance = axios.create({
   baseURL: baseUrl,
-  headers: {
-    'authorization': `Bearer ${token}`,
-  }
+  // headers: {
+  //   'authorization': `Bearer ${token}`,
+  // }
 });
 function getTokenByLocal() {
   var section_local = getCookie("token_session");

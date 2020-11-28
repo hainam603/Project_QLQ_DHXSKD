@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AuthService.Server.auth;
+﻿using AuthService.Server.auth;
 using AuthService.Server.Notification;
+using AuthService.Server.Role;
+using AuthService.Server.Role.Phanquyen;
 using AuthService.Server.user;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Model.Connection;
+using Model.Connection.SQLServer;
 
 namespace AuthService
 {
     public class Startup
     {
+        Connection connection = new Connection();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +30,11 @@ namespace AuthService
             services.AddScoped<Iauth, AuthImpl>();
             services.AddScoped<Iuser, UserImpl>();
             services.AddScoped<Inotification, NotificationImpl>();
+            services.AddScoped<Iphanquyen, PhanquyenImpl>();
+            services.AddScoped<Iquyen, QuyenImpl>();
+
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(connection.connectionStringSQL));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

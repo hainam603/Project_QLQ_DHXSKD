@@ -12,7 +12,7 @@ namespace Model.Connection
         public string connectionStringOracel { get; set; }
         public Connection()
         {
-            connectionStringSQL = "Server= HAINAM_PC\\SQLEXPRESS,1433;Database=Fiber;User Id=dev;Password=123;MultipleActiveResultSets=true";
+            connectionStringSQL = "Server= HAINAM_PC\\SQLEXPRESS,1433;Database=DB_TEST;User Id=dev;Password=123456;MultipleActiveResultSets=true";
             connectionStringOracel = "data source=10.70.53.134:1521/SGN;password=Linh$t102018;user id=linhnvu;Incr Pool Size=5;Decr Pool Size=2;";
         }
         public IDbConnection GetConnectionOracle()

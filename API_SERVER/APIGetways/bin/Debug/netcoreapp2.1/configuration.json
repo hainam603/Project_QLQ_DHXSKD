@@ -47,6 +47,23 @@
                 "AllowedScopes": []
             }
 
+        },
+        {
+            "DownstreamPathTemplate": "/api/role/{}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ],
+            "UpstreamPathTemplate": "/role/{}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "TestKey",
+                "AllowedScopes": []
+            }
+
         }
     ],
     "GlobalConfiguration": {

@@ -191,17 +191,25 @@ export default {
       self.snackbar=true;
       var result2 = await this.lay_quyen_nguoidung(this.username, result1.value.token);
         if(result2.code==1){
-          self.text="Kiểm tra quyền người dùng thành công, đang lấy danh sách người dùng";
+          self.text="Kiểm tra quyền người dùng thành công, đang cài đặt ứng dụng";
           self.snackbar=true;
           var result3 = await this.lay_ds_nguoidung(result1.value.token);
-          if(result3.code==1){
-            self.text="Lấy danh sách người dùng thành công";
+          var result4 = await this.Lay_DS_Quyen_Sudung_Chucnang_Theo_Quyen_ID(result2.value, result1.value.token);
+          var result5 = await this.Lay_DS_Chucnang_Theo_DS_Chucnang_ID(result4.value.dschucnang, result1.value.token);
+          if(result3.code+result4.code+result5.code != 3){
+            self.text="Đã có lỗi xảy ra khi cài đặt ứng dụng, liên hệ admin để xử lý";
+            self.snackbar=true;
+            self.timeout=-1;
+            document.cookie = "token_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            localStorage.setItem('ds_nguoidung','');
+            localStorage.ds_chucnang='';
+          }else{
+            self.text="Cài đặt hoàn tất, đang vào ứng dụng";
             self.snackbar=true;
             window.location.href = "/";
-          }else{
-            self.text="Đã có lỗi xảy ra, vui lòng liên hệ admin để xử lý";
-            self.snackbar=true;
           }
+
+          
         }else{
           self.text="Người dùng không có quyền truy cập, liên hệ admin để xử lý";
           self.snackbar=true;
@@ -268,6 +276,25 @@ export default {
       });
       return result;
       
+    },
+    Lay_DS_Quyen_Sudung_Chucnang_Theo_Quyen_ID(quyen_id,token){
+      var sefl=this;
+      var result=role.Lay_DS_Quyen_Sudung_Chucnang_Theo_Quyen_ID(quyen_id,token).then(response=>{
+        if(response.data.success){
+            return {"code":1, "value":response.data.data}
+        }
+      }).catch();
+      return result;
+    },
+    Lay_DS_Chucnang_Theo_DS_Chucnang_ID(dschucnang_id,token){
+      var sefl=this;
+      var result=role.Lay_DS_Chucnang_Theo_DS_Chucnang_ID(dschucnang_id,token).then(response=>{
+        if(response.data.success){
+            localStorage.setItem("ds_chucnang",JSON.stringify(response.data.data));
+            return {"code":1, "value":response.data.data}
+        }
+      }).catch();
+      return result;
     }
   },
   watch: {

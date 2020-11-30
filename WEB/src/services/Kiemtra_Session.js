@@ -1,4 +1,13 @@
 export default {
+    kiemtra_link_truycap(links,link)
+    {
+       var array=[];
+       links.forEach(element => {
+           array.push(element.link ? element.link.trim() : '');
+       });
+       var rs = array.includes(link);
+       return rs;
+    },
     getTokenByLocal() {
         var section_local = this.getCookie("token_session");
         if (section_local) {

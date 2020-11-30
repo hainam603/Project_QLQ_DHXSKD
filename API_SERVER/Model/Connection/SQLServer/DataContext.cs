@@ -14,9 +14,11 @@ namespace Model.Connection.SQLServer
         //Tên dbset phải giống hệt trong sqlserver
         public DbSet<QuyenModel> Quyen { get; set; }
         public DbSet<PhanquyenModel> PhanQuyen { get; set; }
+        public DbSet<ChucnangModel> ChucNang { get; set; }
+        public DbSet<QuyenSudungChucnangModel> QuyenSudungChucnang { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
+            builder.Entity<QuyenSudungChucnangModel>().HasKey(i => new { i.quyen_id, i.chucnang_id });
         }
     }
 }

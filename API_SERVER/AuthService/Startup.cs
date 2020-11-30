@@ -1,7 +1,9 @@
 ﻿using AuthService.Server.auth;
 using AuthService.Server.Notification;
 using AuthService.Server.Role;
+using AuthService.Server.Role.Chucnang;
 using AuthService.Server.Role.Phanquyen;
+using AuthService.Server.Role.QuyenSudungChucnang;
 using AuthService.Server.user;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +34,8 @@ namespace AuthService
             services.AddScoped<Inotification, NotificationImpl>();
             services.AddScoped<Iphanquyen, PhanquyenImpl>();
             services.AddScoped<Iquyen, QuyenImpl>();
-
+            services.AddScoped<Ichucnang, ChucnangImpl>();
+            services.AddScoped<IquyenSudungChucnang, QuyenSudungChucnangImpl>();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(connection.connectionStringSQL));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

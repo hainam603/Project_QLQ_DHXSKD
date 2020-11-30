@@ -8,41 +8,41 @@
               <v-list-item-icon>
                 <v-icon>mdi-home</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Home</v-list-item-title>
+              <v-list-item-Title>Home</v-list-item-Title>
             </v-list-item>
 
             <v-list-group :value="true" prepend-icon="mdi-account-circle">
               <template v-slot:activator>
-                <v-list-item-title>Users</v-list-item-title>
+                <v-list-item-Title>Users</v-list-item-Title>
               </template>
 
               <v-list-group :value="true" no-action sub-group>
                 <template v-slot:activator>
                   <v-list-item-content>
-                    <v-list-item-title>Admin</v-list-item-title>
+                    <v-list-item-Title>Admin</v-list-item-Title>
                   </v-list-item-content>
                 </template>
 
-                <v-list-item v-for="([title, icon], i) in admins" :key="i" link>
+                <v-list-item v-for="([Title, icon], i) in admins" :key="i" link>
                   <v-list-item-icon>
                     <v-icon v-text="icon"></v-icon>
                   </v-list-item-icon>
-                  <v-list-item-title v-text="title"></v-list-item-title>
+                  <v-list-item-Title v-text="Title"></v-list-item-Title>
                 </v-list-item>
               </v-list-group>
 
               <v-list-group no-action sub-group>
                 <template v-slot:activator>
                   <v-list-item-content>
-                    <v-list-item-title>Actions</v-list-item-title>
+                    <v-list-item-Title>Actions</v-list-item-Title>
                   </v-list-item-content>
                 </template>
 
-                <v-list-item v-for="([title, icon], i) in cruds" :key="i" link>
+                <v-list-item v-for="([Title, icon], i) in cruds" :key="i" link>
                   <v-list-item-icon>
                     <v-icon v-text="icon"></v-icon>
                   </v-list-item-icon>
-                  <v-list-item-title v-text="title"></v-list-item-title>
+                  <v-list-item-Title v-text="Title"></v-list-item-Title>
                 </v-list-item>
               </v-list-group>
             </v-list-group>
@@ -52,7 +52,7 @@
           <v-app-bar-nav-icon
             @click.stop="sideNav = !sideNav"
           ></v-app-bar-nav-icon>
-          <v-toolbar-title>
+          <v-toolbar-Title>
             <v-img
               alt="VNPT Logo"
               class="shrink mr-2"
@@ -61,7 +61,7 @@
               transition="scale-transition"
               width="40"
             />
-          </v-toolbar-title>
+          </v-toolbar-Title>
           <v-autocomplete
             v-model="select"
             :loading="loading"
@@ -85,7 +85,7 @@
           >
             <v-btn text :to="item.link">
               <v-icon left dark>{{ item.icon }}</v-icon>
-              <span class="mr-2">{{ item.title }}</span>
+              <span class="mr-2">{{ item.Title }}</span>
             </v-btn>
 
             <v-divider vertical></v-divider>
@@ -118,10 +118,10 @@
                         {{ icon.icon }}
                       </v-icon>
                     </template>
-                    <span>{{ icon.title }}</span>
+                    <span>{{ icon.Title}}</span>
                   </v-tooltip>
                 </v-btn>
-                <v-btn class="mx-4 white--text" icon>
+                <!-- <v-btn class="mx-4 white--text" icon>
                   <v-badge
                     bordered
                     dot
@@ -131,7 +131,7 @@
                   >
                   <v-icon color="white" @click="Click_Thongbao_I8"> mdi-bell </v-icon>
                   </v-badge>
-                </v-btn>
+                </v-btn> -->
               </v-card-text>
             </v-card>
           </v-footer>
@@ -191,9 +191,10 @@ export default {
     message: "",
     sideNav: false,
     icons: [
-      { icon: "mdi-home", title: "Trang chủ", link: "/home" },
-      { icon: "mdi-calendar", title: "Calendar", link:'' },
-      { icon: "mdi-view-dashboard", title: "Dashboard", link: "/dashboard" },
+      // { icon: "mdi-home", Title: "Trang chủ", link: "/home" },
+      // { icon: "mdi-calendar", Title: "Calendar", link:'' },
+      // { icon: "mdi-view-dashboard", Title: "Dashboard", link: "/dashboard" },
+      // { icon: "mdi-shield-key-outline", Title: "Quản trị", link: "/dashboard" },
     ],
     admins: [
       ["Management", "mdi-account-multiple-outline"],
@@ -206,12 +207,12 @@ export default {
       ["Delete", "mdi-delete"],
     ],
     menuItems: [
-      { icon: "mdi-home", title: "Trang chủ", link: "/home" },
-      { icon: "mdi-menu", title: "Quyền Menu", link: "/role_menu" },
-      { icon: "mdi-account", title: "Quản lý người dùng", link: "/profile" },
-      { icon: "mdi-view-list", title: "Quyền báo cáo", link: "/role_baocao" },
-      { icon: "mdi-book-search-outline", title: "Rà soát thuê bao", link: "/rasoat_thuebao" },
-      { icon: "mdi-exit-to-app", title: "Thoát", link: "/logout" },
+      // { icon: "mdi-home", title: "Trang chủ", link: "/home" },
+      // { icon: "mdi-menu", title: "Quyền Menu", link: "/role_menu" },
+      // { icon: "mdi-account", title: "Quản lý người dùng", link: "/profile" },
+      // { icon: "mdi-view-list", title: "Quyền báo cáo", link: "/role_baocao" },
+      // { icon: "mdi-book-search-outline", title: "Rà soát thuê bao", link: "/rasoat_thuebao" },
+      // { icon: "mdi-exit-to-app", title: "Thoát", link: "/logout" },
     ],
     items: [],
     search: null,
@@ -279,16 +280,23 @@ export default {
     ],
   }),
   created(){
-    if(this.Kiemtra_Hotro_LocalStorage()){
-      if(!kt.get_token_session()){
-        this.$router.push('/logout');
+    var self=this;
+    if(self.Kiemtra_Hotro_LocalStorage()){
+      if(!kt.get_token_session() || !localStorage.ds_chucnang || !localStorage.ds_nguoidung){
+        self.$router.push('/logout');
+      }else{
+        self.Khoitao_DS_Chucnang();
       }
     }else{
-       this.$router.push('/logout');
-       this.text="Trình duyệt hiện không hỗ trợ LocalStorage, vui lòng cập nhật lên phiên bản mới nhất để sử dụng ứng dụng";
-       this.timeout=-1;
-       this.snackbar=true;
+       self.$router.push('/logout');
+       self.text="Trình duyệt hiện không hỗ trợ LocalStorage, vui lòng cập nhật lên phiên bản mới nhất để sử dụng ứng dụng";
+       self.timeout=-1;
+       self.snackbar=true;
     }
+  },
+  mounted(){
+   
+    
   },
   watch: {
     search(val) {
@@ -301,16 +309,38 @@ export default {
   },
 
   methods: {
+
+    Khoitao_DS_Chucnang(){
+      var self=this;
+       var ds_chucnang=JSON.parse(localStorage.ds_chucnang);
+        ds_chucnang.forEach((element,key) => {
+
+          if(element.menu)
+            self.menuItems.push({
+              icon: element.icon, 
+              Title: element.title, 
+              link: element.link?element.link.trim():''
+            });
+          else
+            self.icons.push({
+              
+              icon: element.icon,
+              Title: element.title, 
+              link: element.link?element.link.trim():''
+            });
+        });
+
+    },
     Kiemtra_Hotro_LocalStorage(){
       if (typeof(Storage) !== 'undefined') 
         return true;
       else 
         return false;
     },
-    Click_Thongbao_I8(){
-      // console.log("thong bao i8")
-      this.$router.push("/thongbao_i8");
-    },
+    // Click_Thongbao_I8(){
+    //   console.log("thong bao i8")
+    //   this.$router.push("/thongbao_i8");
+    // },
     
     querySelections(v) {
       this.loading = true;
@@ -326,9 +356,9 @@ export default {
 };
 </script>
 <style scoped>
-.v-card__subtitle,
+.v-card__subTitle,
 .v-card__text,
-.v-card__title {
+.v-card__Title {
   padding: 6px;
 }
 </style>

@@ -13,9 +13,9 @@ import Rasoat_thuebao from "../views/Rasoat_thuebao.vue";
 import kiemtra_session from "../services/Kiemtra_Session";
 import Thongbao_I8 from "../views/Thongbao_I8";
 import Error from "../views/Error";
+import { VRating } from "vuetify/lib";
 
 Vue.use(VueRouter);
-
 const routes = [
   {
     path: "/home",
@@ -114,15 +114,24 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const kt=kiemtra_session;
+  var links = localStorage.ds_chucnang ? JSON.parse(localStorage.ds_chucnang) : '';
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (kt.getTokenByLocal()) {
-      next();
-      return;
-    }
-    next("/");
+    if (kt.get_token_session()) {
+      if(links && kt.kiemtra_link_truycap(links,to.path))
+        next();
+      else{
+        return;
+      }
+    }else
+      next("/");
   } else {
     next();
   }
+
+  
+  
+  
+  
 });
 
 // router.beforeEach((to, from, next) => {

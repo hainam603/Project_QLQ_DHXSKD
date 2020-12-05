@@ -57,5 +57,6 @@ namespace AuthService.Controllers
         {
             return quyensudungchucnang.Lay_DS_Quyen_Sudung_Chucnang_Theo_Quyen_ID(quyen_id);
         }
+       
     }
 }

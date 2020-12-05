@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj": {}
+    "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj": {
+    "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj",
+        "projectUniqueName": "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj",
         "projectName": "Model",
-        "projectPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj",
+        "projectPath": "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj",
         "packagesPath": "C:\\Users\\HaiNam\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\obj\\",
+        "outputPath": "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -44,6 +44,10 @@
             "Dapper": {
               "target": "Package",
               "version": "[2.0.78, )"
+            },
+            "Microsoft.AspNetCore.Authorization": {
+              "target": "Package",
+              "version": "[2.0.1, )"
             },
             "Microsoft.AspNetCore.Cryptography.KeyDerivation": {
               "target": "Package",

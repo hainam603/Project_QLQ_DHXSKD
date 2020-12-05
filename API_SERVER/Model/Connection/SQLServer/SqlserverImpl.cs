@@ -7,8 +7,8 @@ namespace Model.Connection.SQLServer
 {
     public class SqlserverImpl<T> : Isqlserver<T> where T : class
     {
-        DataContext dataContext;
-        DbSet<T> table;
+        protected readonly DataContext dataContext;
+        protected DbSet<T> table;
         public SqlserverImpl(DataContext dataContext)
         {
             this.dataContext = dataContext;

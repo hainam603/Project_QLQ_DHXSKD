@@ -4560,6 +4560,7 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Dapper": "2.0.78",
+          "Microsoft.AspNetCore.Authorization": "2.0.1",
           "Microsoft.AspNetCore.Cryptography.KeyDerivation": "2.0.1",
           "Microsoft.EntityFrameworkCore": "2.0.0",
           "Oracle.ManagedDataAccess.Core": "2.19.100",
@@ -12415,11 +12416,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\APIGetways\\APIGetways.csproj",
+      "projectUniqueName": "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\APIGetways\\APIGetways.csproj",
       "projectName": "APIGetways",
-      "projectPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\APIGetways\\APIGetways.csproj",
+      "projectPath": "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\APIGetways\\APIGetways.csproj",
       "packagesPath": "C:\\Users\\HaiNam\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\APIGetways\\obj\\",
+      "outputPath": "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\APIGetways\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12438,8 +12439,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj": {
-              "projectPath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj"
+            "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj": {
+              "projectPath": "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj"
             }
           }
         }

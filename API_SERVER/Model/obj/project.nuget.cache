@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "reN2UBdhi9HyHcfexuBKO9arFbmxliwhvlkM9XDRrcPRBvH11RHez3WNSQmvih1IX0r7693BLNJziknNnLGz+Q==",
+  "dgSpecHash": "TNlxAIjrFklRdMoTP/UkZS1MB0EGQh9Y2wnOnhXj9EfHl24SqbqoO8AKOBIR9ys8R4j2hC5Ohal7b4vjMNT1OQ==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\QLQ_DHSXKD\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj",
+  "projectFilePath": "D:\\Projects\\Project_QLQ_DHXSKD\\API_SERVER\\Model\\Model.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HaiNam\\.nuget\\packages\\dapper\\2.0.78\\dapper.2.0.78.nupkg.sha512",
+    "C:\\Users\\HaiNam\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.0.1\\microsoft.aspnetcore.authorization.2.0.1.nupkg.sha512",
     "C:\\Users\\HaiNam\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\2.0.1\\microsoft.aspnetcore.cryptography.internal.2.0.1.nupkg.sha512",
     "C:\\Users\\HaiNam\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\2.0.1\\microsoft.aspnetcore.cryptography.keyderivation.2.0.1.nupkg.sha512",
     "C:\\Users\\HaiNam\\.nuget\\packages\\microsoft.entityframeworkcore\\2.0.0\\microsoft.entityframeworkcore.2.0.0.nupkg.sha512",

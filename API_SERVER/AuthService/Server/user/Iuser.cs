@@ -15,6 +15,6 @@ namespace AuthService.Server.user
         dynamic Lay_DS_LoaiNV_Nguoidung(string ma_nd);
         //Quyên báo cáo
         dynamic Lay_DS_Nhombaocao_Nguoidung(string ma_nd);
-        dynamic Lay_DS_Baocao_Nguoidung(string ma_nd, string nhom_bc_id);
+        dynamic Lay_DS_Baocao_Nguoidung(string ma_nd, int nhom_bc_id);
     }
 }

@@ -191,7 +191,7 @@ namespace AuthService.Server.user
 
             return datarespond;
         }
-        public dynamic Lay_DS_Baocao_Nguoidung(string ma_nd, string nhom_bc_id)
+        public dynamic Lay_DS_Baocao_Nguoidung(string ma_nd, int nhom_bc_id)
         {
             dynamic result = null;
             try

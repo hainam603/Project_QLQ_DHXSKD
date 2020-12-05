@@ -8,7 +8,8 @@ namespace AuthService.Server.auth
 {
     public interface Iauth
     {
-        dynamic genToken(string username);
+        dynamic genToken(string username, string Rolename);
         dynamic login(LoginRequestModel lrm);
+        dynamic getRole(LoginRequestModel lrm);
     }
 }

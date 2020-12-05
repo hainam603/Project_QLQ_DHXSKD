@@ -16,21 +16,8 @@ namespace AuthService.Server.Role.Chucnang
 
         public dynamic Lay_DS_Chucnang()
         {
-            DataRespond dataRespond = new DataRespond();
-            try
-            {
-                dataRespond.success = true;
-                dataRespond.data = getAll();
-                dataRespond.message = "Successfully";
-            }
-            catch (Exception ex)
-            {
-                dataRespond.success = false;
-                dataRespond.message = ex.ToString();
-            }
-            return dataRespond;
+            return getAll();
         }
-
         public dynamic Lay_DS_Chucnang_Theo_DS_Chucnang_ID(string dschucnang_id)
         {
             string[] sdschucnang_id = dschucnang_id.Split(',');

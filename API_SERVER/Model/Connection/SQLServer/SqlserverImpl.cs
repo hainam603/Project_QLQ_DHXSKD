@@ -20,6 +20,13 @@ namespace Model.Connection.SQLServer
             table.Remove(obj);
             save();
         }
+        public void delete2(object id1, object id2)
+        {
+            T obj = table.Find(id1, id2);
+            table.Remove(obj);
+            save();
+        }
+
 
         public IEnumerable<T> getAll()
         {

@@ -13,7 +13,7 @@ export default {
         if (section_local) {
           var tok = this.strToObj(this.getCookie("token_session"));
           // console.log(tok.token);
-          return tok.token;
+          return tok;
         }
         return "";
       

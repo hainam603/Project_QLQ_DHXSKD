@@ -12,5 +12,7 @@ namespace AuthService.Server.Role.QuyenSudungChucnang
         dynamic Lay_DS_Quyen_Sudung_Chucnang();
         dynamic Lay_DS_Quyen_Sudung_Chucnang_Theo_Quyen_ID(int quyen_id);
         dynamic Lay_DS_Quyen_Theo_Chucnang(int chucnang_id);
+        dynamic Them_Quyen_Sudung_Chucnang(RoleUpdateRequestModel roleUpdateRequest);
+        dynamic Xoa_Quyen_Sudung_Chucnang(RoleUpdateRequestModel roleUpdateRequest);
     }
 }

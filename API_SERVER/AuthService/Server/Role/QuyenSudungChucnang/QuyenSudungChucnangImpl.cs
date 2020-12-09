@@ -11,14 +11,58 @@ namespace AuthService.Server.Role.QuyenSudungChucnang
 {
     public class QuyenSudungChucnangImpl : SqlserverImpl<QuyenSudungChucnangModel>, IquyenSudungChucnang
     {
+        DataRespond dataRespond = new DataRespond();
         public QuyenSudungChucnangImpl(DataContext dataContext) : base(dataContext)
         {
         }
-      
+
+        
+
+        public dynamic Xoa_Quyen_Sudung_Chucnang(RoleUpdateRequestModel roleUpdateRequest)
+        {
+            try
+            { 
+                List<QuyenSudungChucnangModel> list = (from qsdcn in dataContext.QuyenSudungChucnang.Where(c => c.quyen_id == roleUpdateRequest.quyen_id) select qsdcn).ToList();
+                dataContext.QuyenSudungChucnang.RemoveRange(list);
+                dataContext.SaveChanges();
+                dataRespond.success = true;
+                dataRespond.message = "Successfully";
+            }
+            catch (Exception ex)
+            {
+                dataRespond.success = false;
+                dataRespond.message = ex.ToString();
+            }
+
+            return dataRespond;
+        }
+        public dynamic Them_Quyen_Sudung_Chucnang(RoleUpdateRequestModel roleUpdateRequest)
+        {
+            Xoa_Quyen_Sudung_Chucnang(roleUpdateRequest);
+            int quyen_id = roleUpdateRequest.quyen_id;
+            List<ChucnangModel> ds_chucnang = roleUpdateRequest.ds_chucnang;
+            List<QuyenSudungChucnangModel> ds_quyen = new List<QuyenSudungChucnangModel>();
+            try
+            {
+                foreach (ChucnangModel item in ds_chucnang)
+                {
+                    QuyenSudungChucnangModel quyen = new QuyenSudungChucnangModel(quyen_id, item.chucnang_id);
+                    insert(quyen);
+                }
+                dataRespond.success = true;
+                dataRespond.message = "Successfully";
+            }
+            catch (Exception ex)
+            {
+                dataRespond.success = false;
+                dataRespond.message = ex.ToString();
+            }
+            return dataRespond;
+        }
 
         dynamic IquyenSudungChucnang.Lay_DS_Quyen_Sudung_Chucnang()
         {
-            DataRespond dataRespond = new DataRespond();
+            
             try
             {
                 dataRespond.success = true;
@@ -37,7 +81,7 @@ namespace AuthService.Server.Role.QuyenSudungChucnang
 
         dynamic IquyenSudungChucnang.Lay_DS_Quyen_Sudung_Chucnang_Theo_Quyen_ID(int quyen_id)
         {
-            DataRespond dataRespond = new DataRespond();
+
             try
             {
                 var result = getAll().Where(c => c.quyen_id == quyen_id);

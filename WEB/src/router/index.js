@@ -13,6 +13,7 @@ import Rasoat_thuebao from "../views/Rasoat_thuebao.vue";
 import kiemtra_session from "../services/Kiemtra_Session";
 import Thongbao_I8 from "../views/Thongbao_I8";
 import Error from "../views/Error";
+import AdminPage from "../views/AdminPage";
 import { VRating } from "vuetify/lib";
 
 Vue.use(VueRouter);
@@ -21,7 +22,7 @@ const routes = [
     path: "/home",
     name: "Home",
     component: Home,
-    meta: { requiresAuth: true,title: "Home" },
+    meta: { requiresAuth: true,title: "Trang chủ" },
   },
   // {
   //   path: "*",
@@ -49,7 +50,7 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
-    meta: { requiresAuth: true,title: "Profile" },
+    meta: { requiresAuth: true,title: "Quyền người dùng" },
   },
   {
     path: "/role_menu",
@@ -74,6 +75,12 @@ const routes = [
     name: "Thongbao_I8",
     component: Thongbao_I8,
     meta: { requiresAuth: true,title: "Thông báo I8" },
+  },
+  {
+    path: "/AdminPage",
+    name: "AdminPage",
+    component: AdminPage,
+    meta: { requiresAuth: true,title: "Quản trị" },
   },
   {
     path: "/signin",

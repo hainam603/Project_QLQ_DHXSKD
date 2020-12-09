@@ -7,6 +7,7 @@ namespace AuthService.Server.Role
 {
     public class QuyenImpl : SqlserverImpl<QuyenModel>, Iquyen
     {
+        DataRespond dataRespond = new DataRespond();
 
         public QuyenImpl(DataContext dataContext) : base(dataContext)
         {
@@ -14,7 +15,7 @@ namespace AuthService.Server.Role
 
         public dynamic Lay_DS_Quyen()
         {
-            DataRespond dataRespond = new DataRespond();
+            
             dynamic result;
             try
             {
@@ -31,6 +32,20 @@ namespace AuthService.Server.Role
             return dataRespond;
         }
 
-        
+        public dynamic Them_Quyen(QuyenModel quyen)
+        {
+            try
+            {
+                insert(quyen);
+                dataRespond.success = true;
+                dataRespond.message = "Successfully";
+            }
+            catch (Exception ex)
+            {
+                dataRespond.success = false;
+                dataRespond.message = ex.ToString();
+            }
+            return dataRespond;
+        }
     }
 }

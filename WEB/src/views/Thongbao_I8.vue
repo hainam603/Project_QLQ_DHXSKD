@@ -151,7 +151,9 @@ export default {
     }
   },
   created(){
-    this.token=kt.getTokenByLocal();
+    var self=this;
+    var tok=kt.getTokenByLocal();
+    self.token=tok.token;
   },
   methods:{
     Click_Xem(){

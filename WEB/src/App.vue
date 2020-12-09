@@ -31,7 +31,7 @@
                 </v-list-item>
               </v-list-group>
 
-              <v-list-group no-action sub-group>
+              <!-- <v-list-group no-action sub-group>
                 <template v-slot:activator>
                   <v-list-item-content>
                     <v-list-item-Title>Actions</v-list-item-Title>
@@ -44,7 +44,7 @@
                   </v-list-item-icon>
                   <v-list-item-Title v-text="Title"></v-list-item-Title>
                 </v-list-item>
-              </v-list-group>
+              </v-list-group> -->
             </v-list-group>
           </v-list>
         </v-navigation-drawer>
@@ -198,14 +198,14 @@ export default {
     ],
     admins: [
       ["Management", "mdi-account-multiple-outline"],
-      ["Settings", "mdi-cog-outline"],
+      // ["Settings", "mdi-cog-outline"],
     ],
-    cruds: [
-      ["Create", "mdi-plus-outline"],
-      ["Read", "mdi-file-outline"],
-      ["Update", "mdi-update"],
-      ["Delete", "mdi-delete"],
-    ],
+    // cruds: [
+    //   ["Create", "mdi-plus-outline"],
+    //   ["Read", "mdi-file-outline"],
+    //   ["Update", "mdi-update"],
+    //   ["Delete", "mdi-delete"],
+    // ],
     menuItems: [
       // { icon: "mdi-home", title: "Trang chủ", link: "/home" },
       // { icon: "mdi-menu", title: "Quyền Menu", link: "/role_menu" },

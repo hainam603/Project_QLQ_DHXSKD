@@ -1,5 +1,5 @@
 {
-    
+
     "ReRoutes": [
         {
             "DownstreamPathTemplate": "/api/auth/{}",
@@ -11,11 +11,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/auth/{}",
-            "UpstreamHttpMethod": [ "Get","Post","Put" ]
+            "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
 
         },
         {
-            "DownstreamPathTemplate": "/api/user/{}",
+            "DownstreamPathTemplate": "/api/{catchAll}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -23,8 +23,8 @@
                     "Port": 5001
                 }
             ],
-            "UpstreamPathTemplate": "/user/{}",
-            "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+            "UpstreamPathTemplate": "/{catchAll}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "TestKey",
                 "AllowedScopes": []
@@ -32,7 +32,7 @@
 
         },
         {
-            "DownstreamPathTemplate": "/api/notification/{}",
+            "DownstreamPathTemplate": "/api/{catchAll}/{}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -40,31 +40,16 @@
                     "Port": 5001
                 }
             ],
-            "UpstreamPathTemplate": "/notification/{}",
-            "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "TestKey",
-                "AllowedScopes": []
-            }
-
-        },
-        {
-            "DownstreamPathTemplate": "/api/role/{}",
-            "DownstreamScheme": "http",
-            "DownstreamHostAndPorts": [
-                {
-                    "Host": "localhost",
-                    "Port": 5001
-                }
-            ],
-            "UpstreamPathTemplate": "/role/{}",
-            "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+            "UpstreamPathTemplate": "/{catchAll}/{}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "TestKey",
                 "AllowedScopes": []
             }
 
         }
+
+
     ],
     "GlobalConfiguration": {
         "RequestIdKey": "OcRequestId",

@@ -11,5 +11,7 @@ namespace AuthService.Server.Role.Chucnang
     {
         dynamic Lay_DS_Chucnang();
         dynamic Lay_DS_Chucnang_Theo_DS_Chucnang_ID(string dschucnang_id);
+        dynamic Lay_DS_Chucnang_Theo_Quyen_ID(int quyen_id);
+
     }
 }

@@ -122,7 +122,9 @@ export default {
     }
   },
   created(){
-    this.token=kt.getTokenByLocal();
+    var self=this;
+    var tok=kt.getTokenByLocal();
+    self.token=tok.token;
   },
   methods:{
    Nguoidung_Click_Row(e,k){

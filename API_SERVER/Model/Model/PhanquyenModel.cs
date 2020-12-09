@@ -10,5 +10,12 @@ namespace Model.Model
         [Key]
         public string ma_nd { get; set; }
         public int quyen_id { get; set; }
+        public string ten_nd { get; set; }
+        public PhanquyenModel(string ma_nd, int quyen_id, string ten_nd)
+        {
+            this.ma_nd = ma_nd;
+            this.quyen_id = quyen_id;
+            this.ten_nd = ten_nd;
+        }
     }
 }

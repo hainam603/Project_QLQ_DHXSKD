@@ -10,5 +10,8 @@ namespace AuthService.Server.Role.Phanquyen
     public interface Iphanquyen:Isqlserver<PhanquyenModel>
     {
         dynamic Lay_Quyen_Nguoidung(string ma_nd);
+        dynamic Lay_DS_Nguoidung_Theo_Quyen(int quyen_id);
+        dynamic Them_Phanquyen_Nguoidung(PhanquyenModel phanquyen);
+        dynamic Xoa_Phanquyen_Nguoidung(PhanquyenModel phanquyen);
     }
 }

@@ -190,6 +190,7 @@ export default {
       self.text="Đăng nhập thành công, đang kiểm tra quyền của người dùng";
       self.snackbar=true;
       var result2 = await this.lay_quyen_nguoidung(this.username, result1.value.token);
+      
         if(result2.code==1){
           self.text="Kiểm tra quyền người dùng thành công, đang cài đặt ứng dụng";
           self.snackbar=true;

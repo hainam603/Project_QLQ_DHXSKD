@@ -65,5 +65,6 @@ namespace AuthService.Controllers
         {
             return user.Lay_DS_Baocao_Nguoidung(ma_nd, nhom_bc_id);
         }
+
     }
 }
